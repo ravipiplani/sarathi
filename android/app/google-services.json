@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "542048004976",
+    "firebase_url": "https://loginboilerplate-2020.firebaseio.com",
+    "project_id": "loginboilerplate-2020",
+    "storage_bucket": "loginboilerplate-2020.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542048004976:android:e57d78ba28146ae159fdb5",
+        "android_client_info": {
+          "package_name": "com.login_boilerplate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "542048004976-71mkfvhffvb3rqedoatf7fo6nvka2rlf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDee3T2QwFbqUO2g8HccWdtwg7oe2L1VY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "542048004976-71mkfvhffvb3rqedoatf7fo6nvka2rlf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
