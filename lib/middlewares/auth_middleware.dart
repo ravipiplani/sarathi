@@ -90,7 +90,6 @@ Middleware<AppState> _createSendOTPMiddleware() {
           verificationCompleted: action.verificationCompleted,
           verificationFailed: action.verificationFailed
         );
-        store.dispatch(StopLoading());
       }
       catch (error) {
         store.dispatch(StopLoading());
