@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:login_boilerplate/models/auth_state.dart';
+import 'package:yathaarth/models/auth_state.dart';
 
 part 'app_state.g.dart';
 

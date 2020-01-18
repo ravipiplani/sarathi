@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:login_boilerplate/models/user.dart';
+import 'package:yathaarth/models/user.dart';
 
 part 'auth_state.g.dart';
 

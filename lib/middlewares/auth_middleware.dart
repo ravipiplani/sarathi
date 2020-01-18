@@ -1,12 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:login_boilerplate/actions/auth_actions.dart';
-import 'package:login_boilerplate/actions/loading_actions.dart';
-import 'package:login_boilerplate/keys.dart';
-import 'package:login_boilerplate/models/app_state.dart';
-import 'package:login_boilerplate/models/user.dart';
-import 'package:login_boilerplate/routes.dart';
+import 'package:yathaarth/actions/auth_actions.dart';
+import 'package:yathaarth/actions/loading_actions.dart';
+import 'package:yathaarth/keys.dart';
+import 'package:yathaarth/models/app_state.dart';
+import 'package:yathaarth/models/user.dart';
+import 'package:yathaarth/routes.dart';
 import 'package:redux/redux.dart';
 
 List<Middleware<AppState>> createAuthMiddleware() {

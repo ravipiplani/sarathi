@@ -1,34 +1,42 @@
 {
   "project_info": {
-    "project_number": "542048004976",
-    "firebase_url": "https://loginboilerplate-2020.firebaseio.com",
-    "project_id": "loginboilerplate-2020",
-    "storage_bucket": "loginboilerplate-2020.appspot.com"
+    "project_number": "817234824618",
+    "firebase_url": "https://yathaarth-616.firebaseio.com",
+    "project_id": "yathaarth-616",
+    "storage_bucket": "yathaarth-616.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:542048004976:android:e57d78ba28146ae159fdb5",
+        "mobilesdk_app_id": "1:817234824618:android:1e55ab987759752329efd3",
         "android_client_info": {
-          "package_name": "com.login_boilerplate"
+          "package_name": "com.yathaarth"
         }
       },
       "oauth_client": [
         {
-          "client_id": "542048004976-71mkfvhffvb3rqedoatf7fo6nvka2rlf.apps.googleusercontent.com",
+          "client_id": "817234824618-0ime280ch83a0jpdtjj0f3bbl8bb8vp2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.yathaarth",
+            "certificate_hash": "7be878137ea0a7ebd51b9eeefc536f4a80da7ad7"
+          }
+        },
+        {
+          "client_id": "817234824618-0jlfj9ilcv5en23d6vh3mhcn92ted2vu.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBDee3T2QwFbqUO2g8HccWdtwg7oe2L1VY"
+          "current_key": "AIzaSyDCvdI4RJA5nlQm35TZF9oUzXvGl5ckDmk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "542048004976-71mkfvhffvb3rqedoatf7fo6nvka2rlf.apps.googleusercontent.com",
+              "client_id": "817234824618-0jlfj9ilcv5en23d6vh3mhcn92ted2vu.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -1,4 +1,4 @@
-package com.login_boilerplate
+package com.yathaarth
 
 import androidx.annotation.NonNull;
 import io.flutter.embedding.android.FlutterActivity

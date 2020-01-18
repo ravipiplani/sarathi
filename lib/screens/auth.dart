@@ -3,12 +3,14 @@ import 'package:country_pickers/country_picker_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
-import 'package:login_boilerplate/actions/auth_actions.dart';
-import 'package:login_boilerplate/actions/loading_actions.dart';
-import 'package:login_boilerplate/keys.dart';
-import 'package:login_boilerplate/models/app_state.dart';
-import 'package:login_boilerplate/routes.dart';
-import 'package:login_boilerplate/screens/otp.dart';
+import 'package:yathaarth/actions/auth_actions.dart';
+import 'package:yathaarth/actions/loading_actions.dart';
+import 'package:yathaarth/components/heading.dart';
+import 'package:yathaarth/components/input_title.dart';
+import 'package:yathaarth/keys.dart';
+import 'package:yathaarth/models/app_state.dart';
+import 'package:yathaarth/routes.dart';
+import 'package:yathaarth/screens/otp.dart';
 import 'package:redux/redux.dart';
 
 class Auth extends StatefulWidget {
@@ -22,58 +24,101 @@ class _AuthState extends State<Auth> {
   TextEditingController _controller = TextEditingController();
   String verificationId;
   String countryCode = "+91";
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Auth Screen")
-      ),
-      body: Container(
-        padding: EdgeInsets.all(20),
+      resizeToAvoidBottomInset: false,
+      body: SafeArea(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Row(
-              children: <Widget>[
-                Padding(
-                  padding: EdgeInsets.only(top: 23, right: 20),
-                  child: InkWell(
-                    onTap: _openCountryPickerDialog,
-                    child: Text(countryCode, style: Theme.of(context).textTheme.display2.copyWith(fontWeight: FontWeight.w400, color: Theme.of(context).primaryColor.withOpacity(0.7))),
-                  )
-                ),
-                Expanded(
-                  child: TextFormField(
-                    maxLength: 10,
-                    controller: _controller,
-                    decoration: InputDecoration(
-                      hintText: "Mobile No"
-                    ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return "Please enter 10 digit mobile number.";
-                      }
-                      return null;
-                    },
-                    keyboardType: TextInputType.phone,
-                  ),
-                )
-              ],
+            Container(
+              padding: EdgeInsets.all(40),
+              child: Heading(
+                text: "Yathaarth",
+                size: 48,
+              )
             ),
-            StoreConnector<AppState, _AuthViewModel>(
-              converter: _AuthViewModel.fromStore,
-              builder: (BuildContext context, _AuthViewModel viewModel) {
-                return Padding(
-                  padding: EdgeInsets.only(top: 20),
-                  child: RaisedButton(
-                    onPressed: () {
-                      viewModel.sendOtp(countryCode + _controller.text);
+            Expanded(
+              child: Align(
+                alignment: Alignment.center,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    InputTitle(
+                      title: "Mobile Verification",
+                      desc: "Please enter your mobile number",
+                    ),
+                    Form(
+                      key: _formKey,
+                      child: Container(
+                        padding: EdgeInsets.all(32),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Padding(
+                                  padding: EdgeInsets.only(right: 10),
+                                  child: InkWell(
+                                    onTap: _openCountryPickerDialog,
+                                    child: Text(countryCode, style: Theme.of(context).textTheme.headline.copyWith(fontWeight: FontWeight.w400, color: Theme.of(context).accentColor)),
+                                  )
+                                ),
+                                Expanded(
+                                  child: TextFormField(
+                                    maxLength: 10,
+                                    controller: _controller,
+                                    decoration: InputDecoration(
+                                      hintText: "Mobile No"
+                                    ),
+                                    validator: (value) {
+                                      if (value.isEmpty) {
+                                        return "Please enter 10 digit mobile number.";
+                                      }
+                                      return null;
+                                    },
+                                    keyboardType: TextInputType.phone,
+                                  ),
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                )
+              )
+            ),
+            Container(
+              padding: EdgeInsets.only(bottom: 20),
+              child: StoreConnector<AppState, _AuthViewModel>(
+                converter: _AuthViewModel.fromStore,
+                builder: (BuildContext context, _AuthViewModel viewModel) {
+                  return viewModel.isLoading ? CircularProgressIndicator() : InkWell(
+                    child: CircleAvatar(
+                      backgroundColor: Theme.of(context).accentColor,
+                      radius: 30,
+                      child: Icon(Icons.chevron_right, size: 36, color: Colors.white)
+                    ),
+                    onTap: () {
+                      if (_formKey.currentState.validate()) {
+                        viewModel.sendOtp(countryCode + _controller.text);
+                        Scaffold.of(context).showSnackBar(SnackBar(
+                          content: Text('Sending OTP...')
+                        ));
+                      }
                     },
-                    child: viewModel.isLoading ? Text("Sending...") : Text("Send OTP"),
-                  )
-                );
-              },
+                  );
+                },
+              ),
+            ),
+            Expanded(
+              child: Text("Terms & Conditions", style: Theme.of(context).textTheme.caption)
             )
           ],
         ),

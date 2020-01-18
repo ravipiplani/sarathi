@@ -1,4 +1,4 @@
-import 'package:login_boilerplate/actions/loading_actions.dart';
+import 'package:yathaarth/actions/loading_actions.dart';
 import 'package:redux/redux.dart';
 
 final loadingReducer = combineReducers<bool>([

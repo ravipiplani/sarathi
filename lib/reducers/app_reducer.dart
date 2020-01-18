@@ -1,6 +1,6 @@
-import 'package:login_boilerplate/models/app_state.dart';
-import 'package:login_boilerplate/reducers/auth_reducer.dart';
-import 'package:login_boilerplate/reducers/loading_reducer.dart';
+import 'package:yathaarth/models/app_state.dart';
+import 'package:yathaarth/reducers/auth_reducer.dart';
+import 'package:yathaarth/reducers/loading_reducer.dart';
 
 AppState appReducer(AppState state, action) {
   return AppState(
