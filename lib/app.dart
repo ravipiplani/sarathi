@@ -38,8 +38,8 @@ class _AppRootState extends State<AppRoot> {
         theme: _themeData,
         navigatorObservers: <NavigatorObserver>[observer],
         navigatorKey: Keys.navigatorKey,
-        // home: Splash(isAuthenticated: widget.store.state.authState.isAuthenticated),
-        initialRoute: Routes.homeScreen,
+        home: Splash(isAuthenticated: widget.store.state.authState.isAuthenticated),
+        // initialRoute: Routes.homeScreen,
         routes: {
           Routes.authScreen: (BuildContext context) => Auth(),
           Routes.otpScreen: (BuildContext context) => Otp(),
