@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:redux_persist_flutter/redux_persist_flutter.dart';
 import 'package:yathaarth/app.dart';
 import 'package:yathaarth/middlewares/auth_middleware.dart';
@@ -12,13 +13,15 @@ import 'package:redux_persist/redux_persist.dart';
 import 'package:redux_thunk/redux_thunk.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   // Create Persistor
   final persistor = Persistor<AppState>(
     // storage: FileStorage(File("state.json")),
     storage: FlutterStorage(location: FlutterSaveLocation.documentFile),
     serializer: JsonSerializer<AppState>(AppState.fromJson),
   );
-
+  
   // Load initial state
   AppState initialState;
   try {
@@ -60,7 +63,7 @@ void main() async {
   //   )
   // );
 
-  // SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   
   return runApp(AppRoot(store: store));
 }
