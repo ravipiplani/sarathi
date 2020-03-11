@@ -133,7 +133,7 @@ class _OtpViewModel {
     return _OtpViewModel(
       isLoading: store.state.isLoading,
       hasLogInFailed: store.state.authState.hasLogInFailed,
-      mobile: store.state.authState.user.mobile,
+      mobile: store.state.authState.mobile,
       verifyOtp: (verificationId, otp, key) {
         store.dispatch(VerifyOTP(
           otp: otp,

@@ -48,7 +48,7 @@ class _ProfileState extends State<Profile> {
         child: ListView.builder(
           itemCount: 10,
           itemBuilder: (context, index) {
-            return ListItem();
+            return ListItem(title: "test", desc: "test desc", subTitle: "Rs 1");
           },
         )
       )

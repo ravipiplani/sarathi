@@ -1,46 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:yathaarth/models/user.dart';
-
-class CheckIfUserExists {
-  final String mobile;
-
-  CheckIfUserExists({this.mobile});
-
-  @override
-  String toString() {
-    return 'CheckIfUserExists{mobile: $mobile}';
-  }
-}
-
-class AlreadyExists {
-  final User user;
-
-  AlreadyExists({this.user});
-
-  @override
-  String toString() {
-    return 'AlreadyExists{user: $user}';
-  }
-}
-
-class NewUser {}
-
-class UpdateUser {
-  final Map<String, dynamic> keyValues;
-
-  UpdateUser({this.keyValues});
-
-  @override
-  String toString() {
-    return 'UpdateUser{keyValues: $keyValues}';
-  }
-}
-
-class RegisterUser {}
-
-class UserRegistered {}
 
 class SendOTP {
   final String phone;
@@ -70,14 +30,25 @@ class VerifyOTP {
   }
 }
 
-class LogInSuccessful {
-  final FirebaseUser user;
+class GetToken {
+  final String uid;
 
-  LogInSuccessful({ @required this.user });
+  GetToken({@required this.uid});
 
   @override
   String toString() {
-    return 'LogInSuccessful{user: $user}';
+    return 'GetToken{uid: $uid}';
+  }
+}
+
+class LogInSuccessful {
+  final String token;
+
+  LogInSuccessful({ @required this.token });
+
+  @override
+  String toString() {
+    return 'LogInSuccessful{token: $token}';
   }
 }
 

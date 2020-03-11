@@ -1,78 +1,28 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:convert';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:yathaarth/actions/auth_actions.dart';
 import 'package:yathaarth/actions/loading_actions.dart';
 import 'package:yathaarth/keys.dart';
+import 'package:yathaarth/models/api_response.dart';
 import 'package:yathaarth/models/app_state.dart';
-import 'package:yathaarth/models/user.dart';
 import 'package:yathaarth/routes.dart';
 import 'package:redux/redux.dart';
+import 'package:yathaarth/services/user_service.dart';
 
 List<Middleware<AppState>> createAuthMiddleware() {
-  final checkIfUserExists = _createCheckIfUserExistsMiddleware();
-  final resgiterUser = _createRegisterUserMiddleware();
   final sendOTP = _createSendOTPMiddleware();
   final verifyOTP = _createVerifyOTPMiddleware();
+  final getToken = _createGetTokenMiddleware();
   final logOut = _createLogOutMiddleware();
 
   return [
-    TypedMiddleware<AppState, CheckIfUserExists>(checkIfUserExists),
-    TypedMiddleware<AppState, RegisterUser>(resgiterUser),
     TypedMiddleware<AppState, SendOTP>(sendOTP),
     TypedMiddleware<AppState, VerifyOTP>(verifyOTP),
+    TypedMiddleware<AppState, GetToken>(getToken),
     TypedMiddleware<AppState, LogOut>(logOut),
   ];
-}
-
-Middleware<AppState> _createCheckIfUserExistsMiddleware() {
-  return (Store store, action, NextDispatcher next) async {
-    if (action is CheckIfUserExists) {
-      try {
-        store.dispatch(StartLoading());
-        Firestore.instance.collection('users').where('mobile', isEqualTo: action.mobile).getDocuments(source: Source.server).then((querySnapshot) {
-          List<User> users = querySnapshot.documents.map((documentSnapshot) {
-            return User.fromJson(documentSnapshot.data);
-          }).toList();
-          if (users.isNotEmpty && users.first.isRegistered){
-            Keys.navigatorKey.currentState.pushNamed(Routes.otpScreen);
-            store.dispatch(AlreadyExists(user: users.first));
-          }
-          else {
-            store.dispatch(NewUser());
-          }
-          store.dispatch(StopLoading());
-        });
-      }
-      catch (e) {
-        // throw the Firebase AuthException that we caught
-        throw new AuthException(e.code, e.message);
-      }
-    }
-    next(action);
-  };
-}
-
-Middleware<AppState> _createRegisterUserMiddleware() {
-  return (Store<AppState> store, action, NextDispatcher next) async {
-    if (action is RegisterUser) {
-      try {
-        store.dispatch(StartLoading());
-        User user = store.state.authState.user;
-        user = user.copyWith(
-          isRegistered: true
-        );
-        Firestore.instance.collection('users').add(user.toJson()).then((result) {
-          store.dispatch(UserRegistered());
-        });
-      }
-      catch (e) {
-        // throw the Firebase AuthException that we caught
-        throw new AuthException(e.code, e.message);
-      }
-    }
-    next(action);
-  };
 }
 
 Middleware<AppState> _createSendOTPMiddleware() {
@@ -114,9 +64,7 @@ Middleware<AppState> _createVerifyOTPMiddleware() {
         final FirebaseUser user = (await _auth.signInWithCredential(credential)).user;
         final FirebaseUser currentUser = await _auth.currentUser();
         assert(user.uid == currentUser.uid);
-        Keys.navigatorKey.currentState.pushReplacementNamed(Routes.homeScreen);
-        store.dispatch(StopLoading());
-        store.dispatch(LogInSuccessful(user: user));
+        store.dispatch(GetToken(uid: user.uid));
       }
       catch (error) {
         store.dispatch(StopLoading());
@@ -124,6 +72,27 @@ Middleware<AppState> _createVerifyOTPMiddleware() {
         action.key.currentState.showSnackBar(SnackBar(
           content: Text("Verification failed.")
         ));
+      }
+    }
+    next(action);
+  };
+}
+
+Middleware<AppState> _createGetTokenMiddleware() {
+  return (Store store, action, NextDispatcher next) async {
+    final UserService _userService = UserService();
+
+    if (action is GetToken) {
+      try {
+        store.dispatch(StartLoading());
+        final ApiResponse response = await _userService.getToken(uid: action.uid);
+        Keys.navigatorKey.currentState.pushNamedAndRemoveUntil(Routes.homeScreen, (Route<dynamic> route) => false);
+        store.dispatch(StopLoading());
+        store.dispatch(LogInSuccessful(token: response.data['token']));
+      }
+      catch (error) {
+        store.dispatch(StopLoading());
+        store.dispatch(LogInFail(error: error));
       }
     }
     next(action);

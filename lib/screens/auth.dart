@@ -168,7 +168,6 @@ class _AuthViewModel {
     return _AuthViewModel(
       isLoading: store.state.isLoading,
       sendOtp: (String mobile) {
-        store.dispatch(UpdateUser(keyValues: {'mobile': mobile}));
         store.dispatch(SendOTP(
           phone: mobile,
           codeSent: smsOTPSent,

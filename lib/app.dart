@@ -29,7 +29,7 @@ class _AppRootState extends State<AppRoot> {
 
   @override
   Widget build(BuildContext context) {
-    // print(widget.store.state);
+     print(widget.store.state);
     return StoreProvider<AppState>(
       store: widget.store,
       child: MaterialApp(

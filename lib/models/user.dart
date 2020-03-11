@@ -5,17 +5,26 @@ part 'user.g.dart';
 @JsonSerializable()
 class User {
   final bool isRegistered;
+  final int id;
+  final String name;
   final String mobile;
+  final String email;
 
   User({
     this.isRegistered = false,
-    this.mobile
+    this.id,
+    this.name,
+    this.mobile,
+    this.email
   });
 
-  User copyWith({bool isRegistered, String mobile}) {
+  User copyWith({bool isRegistered, int id, String name, String mobile, String email}) {
     return User(
       isRegistered: isRegistered ?? this.isRegistered,
-      mobile: mobile ?? this.mobile
+      id: id ?? this.id,
+      name: name ?? this.name,
+      mobile: mobile ?? this.mobile,
+      email: email ?? this.email
     );
   }
 
@@ -25,6 +34,6 @@ class User {
 
   @override
   String toString() {
-    return 'User{isRegistered: $isRegistered, mobile: $mobile}';
+    return 'User{isRegistered: $isRegistered, id: $id, name: $name, mobile: $mobile, email: $email}';
   }
 }

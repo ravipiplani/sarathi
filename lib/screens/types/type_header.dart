@@ -5,14 +5,17 @@ import 'package:flutter/rendering.dart';
 import 'package:yathaarth/components/heading.dart';
 import 'package:yathaarth/components/product_item.dart';
 import 'package:yathaarth/keys.dart';
+import 'package:yathaarth/models/establishment.dart';
 
 class TypeHeader implements SliverPersistentHeaderDelegate{
   final double minExtent;
   final double maxExtent;
+  final Establishment establishment;
 
   TypeHeader({
     @required this.minExtent,
-    @required this.maxExtent
+    @required this.maxExtent,
+    @required this.establishment
   });
 
   @override

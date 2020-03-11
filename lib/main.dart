@@ -5,7 +5,6 @@ import 'package:yathaarth/app.dart';
 import 'package:yathaarth/middlewares/auth_middleware.dart';
 import 'package:yathaarth/models/app_state.dart';
 import 'package:yathaarth/models/auth_state.dart';
-import 'package:yathaarth/models/user.dart';
 import 'package:yathaarth/reducers/app_reducer.dart';
 import 'package:redux/redux.dart';
 import 'package:redux_logging/redux_logging.dart';
@@ -30,8 +29,7 @@ void main() async {
     if (!initialState.authState.isAuthenticated) {
       initialState = initialState.copyWith(
         authState: initialState.authState.copyWith(
-          isNewUser: false,
-          user: User()
+          isNewUser: false
         )
       );
     }

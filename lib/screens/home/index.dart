@@ -1,8 +1,13 @@
+import 'dart:convert';
+import 'dart:core';
+import 'dart:core';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:yathaarth/components/filled_input.dart';
-import 'package:yathaarth/keys.dart';
-import 'package:yathaarth/routes.dart';
-import 'package:yathaarth/screens/types/index.dart';
+import 'package:yathaarth/components/stat_square.dart';
+import 'package:yathaarth/models/api_response.dart';
+import 'package:yathaarth/services/home_service.dart';
 
 class HomeIndex extends StatefulWidget {
   HomeIndex({Key key}) : super(key: key);
@@ -12,25 +17,6 @@ class HomeIndex extends StatefulWidget {
 }
 
 class _HomeIndexState extends State<HomeIndex> {
-  final List<Map<String, dynamic>> _types = [
-    {
-      "label": "SUPER STOCKIST",
-      "color": Color(0xFFF16A70),
-    },
-    {
-      "label": "DISTRIBUTORS",
-      "color": Color(0xFFB1D877)
-    },
-    {
-      "label": "BEATS",
-      "color": Color(0xFF8CDCDA)
-    },
-    {
-      "label": "RETAIL OUTLETS",
-      "color": Color(0xFF4D4D4D)
-    }
-  ];
-  
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -49,51 +35,46 @@ class _HomeIndexState extends State<HomeIndex> {
             padding: EdgeInsets.symmetric(horizontal: 32),
             child: FilledInput(hintText: "Search")
           ),
-          GridView.count(
-            padding: EdgeInsets.all(32),
-            crossAxisCount: 2,
-            crossAxisSpacing: 32,
-            mainAxisSpacing: 32,
-            shrinkWrap: true,
-            primary: true,
-            children: List.generate(_types.length, (index) {
-              return InkWell(
-                child: Container(
-                  alignment: Alignment.center,
-                  padding: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: _types[index]["color"],
-                    borderRadius: BorderRadius.all(Radius.circular(20))
-                  ),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(bottom: 10),
-                        child: Text("0", 
-                          style: Theme.of(context).textTheme.headline.copyWith(
-                            color: Colors.white
-                          )
-                        )
-                      ),
-                      Text(_types[index]["label"],
-                        style: Theme.of(context).textTheme.subhead.copyWith(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w900
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  )
-                ),
-                onTap: () {
-                  Keys.navigatorKey.currentState.pushNamed(Routes.typesScreen, arguments: TypesArguments(type: _types[index]));
-                },
-              );
-            }),
+          FutureBuilder<List<dynamic>>(
+            future: getHomeData(),
+            builder: (context, snapshot) {
+              if (snapshot.hasError) print(snapshot.error);
+
+              return snapshot.hasData
+                ? createHomeGrid(snapshot.data)
+                : Padding(
+                  padding: EdgeInsets.symmetric(vertical: 20),
+                  child: CircularProgressIndicator()
+                );
+            },
           )
         ],
       )
     );
   }
+
+  Widget createHomeGrid(List<Map<String, dynamic>> data) {
+    return GridView.count(
+      padding: EdgeInsets.all(32),
+      crossAxisCount: 2,
+      crossAxisSpacing: 32,
+      mainAxisSpacing: 32,
+      shrinkWrap: true,
+      primary: true,
+      children: List.generate(data.length, (index) {
+        return StatSquare(type: data[index]);
+      }),
+    );
+  }
+}
+
+Future<List<Map<String, dynamic>>> getHomeData() async {
+  final HomeService _homeService = HomeService();
+  final ApiResponse response = await _homeService.getHomeData();
+  return compute(parseHomeData, response.data);
+}
+
+List<Map<String, dynamic>> parseHomeData(dynamic responseBody) {
+  final parsed = responseBody.cast<Map<String, dynamic>>();
+  return parsed.toList();
 }

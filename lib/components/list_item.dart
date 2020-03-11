@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 
 class ListItem extends StatelessWidget {
-  const ListItem({Key key}) : super(key: key);
+  final String title;
+  final String desc;
+  final String subTitle;
+
+  const ListItem({Key key, this.title, this.desc, this.subTitle}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +26,14 @@ class ListItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text("Ghanshyam Distributions", style: Theme.of(context).textTheme.subtitle),
+                Text(title, style: Theme.of(context).textTheme.subtitle),
                 Padding(
                   padding: EdgeInsets.only(top: 5),
-                  child: Text("10/01/2020", style: Theme.of(context).textTheme.caption)
+                  child: Text(desc, style: Theme.of(context).textTheme.caption)
                 )
               ],
             ),
-            Text("Rs 3750", style: Theme.of(context).textTheme.subtitle.copyWith(color: Theme.of(context).primaryColor)),
+            Text(subTitle, style: Theme.of(context).textTheme.subtitle.copyWith(color: Theme.of(context).primaryColor)),
           ],
         )
       )

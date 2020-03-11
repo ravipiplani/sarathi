@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
-import 'package:yathaarth/models/user.dart';
 
 part 'auth_state.g.dart';
 
@@ -10,21 +9,24 @@ class AuthState {
   final bool isAuthenticated;
   final bool hasLogInFailed;
   final bool isNewUser;
-  final User user;
+  final String token;
+  final String mobile;
 
   AuthState({
     this.isAuthenticated,
     this.hasLogInFailed,
     this.isNewUser,
-    this.user
+    this.token,
+    this.mobile
   });
 
-  AuthState copyWith({bool isAuthenticated, bool hasLogInFailed, bool isNewUser, User user}) {
+  AuthState copyWith({bool isAuthenticated, bool hasLogInFailed, bool isNewUser, String token, String mobile}) {
     return AuthState(
       isAuthenticated: isAuthenticated ?? this.isAuthenticated,
       hasLogInFailed: hasLogInFailed ?? this.hasLogInFailed,
       isNewUser: isNewUser ?? this.isNewUser,
-      user: user ?? this.user
+      token: token ?? this.token,
+      mobile: mobile ?? this.mobile
     );
   }
 
@@ -34,6 +36,6 @@ class AuthState {
 
   @override
   String toString() {
-    return 'AuthState{isAuthenticated: $isAuthenticated, hasLogInFailed: $hasLogInFailed, isNewUser: $isNewUser, user: $user}';
+    return 'AuthState{isAuthenticated: $isAuthenticated, hasLogInFailed: $hasLogInFailed, isNewUser: $isNewUser, token: $token, mobile: $mobile}';
   }
 }

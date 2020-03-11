@@ -1,9 +1,19 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:yathaarth/components/list_item.dart';
 import 'package:yathaarth/components/product_counter.dart';
 import 'package:yathaarth/keys.dart';
+import 'package:yathaarth/models/api_response.dart';
+import 'package:yathaarth/models/establishment.dart';
 import 'package:yathaarth/screens/types/type_header.dart';
+import 'package:yathaarth/services/establishment_service.dart';
+
+class ShowTypeArguments {
+  final int establishmentId;
+
+  ShowTypeArguments({this.establishmentId});
+}
 
 class ShowType extends StatefulWidget {
   ShowType({Key key}) : super(key: key);
@@ -13,6 +23,7 @@ class ShowType extends StatefulWidget {
 }
 
 class _ShowTypeState extends State<ShowType> {
+  int _establishmentId;
   final List<Map> _products = [
     {
       "label": "CLEB",
@@ -46,19 +57,31 @@ class _ShowTypeState extends State<ShowType> {
 
   @override
   Widget build(BuildContext context) {
+    final ShowTypeArguments args = ModalRoute.of(context).settings.arguments;
+    _establishmentId = args.establishmentId;
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: SafeArea(
         child: CustomScrollView(
           slivers: <Widget>[
-            SliverPersistentHeader(
-              pinned: true,
-              floating: true,
-              delegate: TypeHeader(
-                minExtent: 138,
-                maxExtent: 257
-              ),
+            FutureBuilder<Establishment>(
+              future: fetchEstablishment(_establishmentId),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) print(snapshot.error);
+
+                return snapshot.hasData
+                  ? SliverPersistentHeader(
+                    pinned: true,
+                    floating: true,
+                    delegate: TypeHeader(
+                        minExtent: 138,
+                        maxExtent: 257,
+                        establishment: snapshot.data
+                    ),
+                  )
+                  : Container();
+              },
             ),
             SliverPadding(
               padding: EdgeInsets.only(top: 10),
@@ -67,7 +90,7 @@ class _ShowTypeState extends State<ShowType> {
               itemExtent: 90,
               delegate: SliverChildBuilderDelegate(
                 (BuildContext context, int index) {
-                  return ListItem();
+                  return ListItem(title: "Test", desc: "Test desc", subTitle: "Rs 1");
                 },
               ),
             )
@@ -184,4 +207,14 @@ class _ShowTypeState extends State<ShowType> {
       backgroundColor: Colors.transparent
     );
   }
+}
+
+Future<Establishment> fetchEstablishment(int id) async {
+  EstablishmentService _establishmentService = EstablishmentService();
+  ApiResponse response = await _establishmentService.show(id: id);
+  return compute(parseEstablishment, response.data);
+}
+
+Establishment parseEstablishment(dynamic responseBody) {
+  return Establishment.fromJson(responseBody);
 }
