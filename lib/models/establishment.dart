@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:yathaarth/models/address.dart';
 import 'package:yathaarth/models/establishment_type.dart';
 import 'package:yathaarth/models/status.dart';
 import 'package:yathaarth/models/user.dart';
@@ -18,6 +19,7 @@ class Establishment {
   final User assignee;
   final Status status;
   final EstablishmentType type;
+  final Address address;
 
   Establishment({
     this.id,
@@ -30,10 +32,11 @@ class Establishment {
     this.parentEstablishmentId,
     this.assignee,
     this.status,
-    this.type
+    this.type,
+    this.address
   });
 
-  Establishment copyWith({int id, String name, String contactName, String mobile, String gst, String pan, String remarks, int parentEstablishmentId, User assignee, Status status, EstablishmentType type}) {
+  Establishment copyWith({int id, String name, String contactName, String mobile, String gst, String pan, String remarks, int parentEstablishmentId, User assignee, Status status, EstablishmentType type, Address address}) {
     return Establishment(
       id: id ?? this.id,
       name: name ?? this.name,
@@ -45,7 +48,8 @@ class Establishment {
       parentEstablishmentId: parentEstablishmentId ?? this.parentEstablishmentId,
       assignee: assignee ?? this.assignee,
       status: status ?? this.status,
-      type: type ?? this.type
+      type: type ?? this.type,
+      address: address ?? this.address
     );
   }
 

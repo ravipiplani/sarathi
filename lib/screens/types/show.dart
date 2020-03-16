@@ -63,38 +63,40 @@ class _ShowTypeState extends State<ShowType> {
       resizeToAvoidBottomInset: false,
       backgroundColor: Colors.white,
       body: SafeArea(
-        child: CustomScrollView(
-          slivers: <Widget>[
-            FutureBuilder<Establishment>(
-              future: fetchEstablishment(_establishmentId),
-              builder: (context, snapshot) {
-                if (snapshot.hasError) print(snapshot.error);
-
-                return snapshot.hasData
-                  ? SliverPersistentHeader(
-                    pinned: true,
-                    floating: true,
-                    delegate: TypeHeader(
-                        minExtent: 138,
-                        maxExtent: 257,
-                        establishment: snapshot.data
-                    ),
-                  )
-                  : Container();
-              },
-            ),
-            SliverPadding(
-              padding: EdgeInsets.only(top: 10),
-            ),
-            SliverFixedExtentList(
-              itemExtent: 90,
-              delegate: SliverChildBuilderDelegate(
-                (BuildContext context, int index) {
-                  return ListItem(title: "Test", desc: "Test desc", subTitle: "Rs 1");
-                },
-              ),
-            )
-          ],
+        child: FutureBuilder<Establishment>(
+          future: fetchEstablishment(_establishmentId),
+          builder: (context, snapshot) {
+            Widget header;
+            if(snapshot.hasData) {
+              header = SliverPersistentHeader(
+                pinned: true,
+                floating: true,
+                delegate: TypeHeader(
+                    minExtent: 138,
+                    maxExtent: 257,
+                    establishment: snapshot.data
+                ),
+              );
+            } else {
+              header = SliverToBoxAdapter(child: CircularProgressIndicator());
+            }
+            return CustomScrollView(
+              slivers: <Widget>[
+                header,
+                SliverPadding(
+                  padding: EdgeInsets.only(top: 10),
+                ),
+                SliverFixedExtentList(
+                  itemExtent: 90,
+                  delegate: SliverChildBuilderDelegate(
+                        (BuildContext context, int index) {
+                      return ListItem(title: "Test", desc: "Test desc", subTitle: "Rs 1");
+                    },
+                  ),
+                )
+              ],
+            );
+          },
         )
       ),
       floatingActionButton: SpeedDial(

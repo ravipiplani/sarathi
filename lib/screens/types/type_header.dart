@@ -43,12 +43,15 @@ class TypeHeader implements SliverPersistentHeaderDelegate{
                   alignment: Alignment.center,
                   child: Column(
                     children: <Widget>[
-                      Heading(
-                        text: "Punjab Ditributor",
-                        size: 32,
+                      SizedBox(
+                        height: 50,
+                        child: Heading(
+                          text: establishment.name,
+                          size: 28,
+                        )
                       ),
                       Chip(
-                        label: Text("Retailer", style: Theme.of(context).textTheme.caption.copyWith(color: Theme.of(context).accentColor),),
+                        label: Text(establishment.type.name, style: Theme.of(context).textTheme.caption.copyWith(color: Theme.of(context).accentColor),),
                         backgroundColor: Theme.of(context).primaryColor,
                       )
                     ],
@@ -74,7 +77,7 @@ class TypeHeader implements SliverPersistentHeaderDelegate{
               child: Column(
                 children: <Widget>[
                   shrinkOffset > 95.0 ? Container() : Text("Ravi Piplani", style: Theme.of(context).textTheme.title,),
-                  shrinkOffset > 50.0 ? Container() : Text("7042401008", style: Theme.of(context).textTheme.caption.copyWith(color: Theme.of(context).accentColor)),
+                  shrinkOffset > 50.0 ? Container() : Text(establishment.mobile, style: Theme.of(context).textTheme.caption.copyWith(color: Theme.of(context).accentColor)),
                   shrinkOffset > 30.0 ? Container() : Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[

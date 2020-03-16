@@ -20,11 +20,11 @@ class User {
 
   User copyWith({bool isRegistered, int id, String name, String mobile, String email}) {
     return User(
-      isRegistered: isRegistered ?? this.isRegistered,
-      id: id ?? this.id,
-      name: name ?? this.name,
-      mobile: mobile ?? this.mobile,
-      email: email ?? this.email
+        isRegistered: isRegistered ?? this.isRegistered,
+        id: id ?? this.id,
+        name: name ?? this.name,
+        mobile: mobile ?? this.mobile,
+        email: email ?? this.email
     );
   }
 

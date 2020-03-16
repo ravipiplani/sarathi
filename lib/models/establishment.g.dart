@@ -25,6 +25,9 @@ Establishment _$EstablishmentFromJson(Map<String, dynamic> json) {
     type: json['type'] == null
         ? null
         : EstablishmentType.fromJson(json['type'] as Map<String, dynamic>),
+    address: json['address'] == null
+        ? null
+        : Address.fromJson(json['address'] as Map<String, dynamic>),
   );
 }
 
@@ -41,4 +44,5 @@ Map<String, dynamic> _$EstablishmentToJson(Establishment instance) =>
       'assignee': instance.assignee,
       'status': instance.status,
       'type': instance.type,
+      'address': instance.address,
     };
