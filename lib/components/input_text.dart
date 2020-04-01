@@ -31,7 +31,7 @@ class InputText extends StatelessWidget {
           hintText: hintText,
           counter: Offstage(),
           labelText: labelText,
-          hasFloatingPlaceholder: true
+          floatingLabelBehavior: FloatingLabelBehavior.always
         ),
         validator: (value) {
           if (value.isEmpty) {

@@ -14,14 +14,11 @@ import 'package:redux_thunk/redux_thunk.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  // Create Persistor
   final persistor = Persistor<AppState>(
-    // storage: FileStorage(File("state.json")),
     storage: FlutterStorage(location: FlutterSaveLocation.documentFile),
     serializer: JsonSerializer<AppState>(AppState.fromJson),
   );
   
-  // Load initial state
   AppState initialState;
   try {
     initialState = await persistor.load();
@@ -44,7 +41,6 @@ void main() async {
     );
   }
 
-  //create store
   final store = Store<AppState>(
     appReducer,
     initialState: initialState,
@@ -54,12 +50,6 @@ void main() async {
       ..addAll(createAuthMiddleware())
       ..add(LoggingMiddleware.printer())
   );
-
-  // SystemChrome.setSystemUIOverlayStyle(
-  //   SystemUiOverlayStyle(
-
-  //   )
-  // );
 
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   

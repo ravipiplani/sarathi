@@ -94,9 +94,9 @@ class _TypesState extends State<Types> {
 }
 
 Future<List<Establishment>> fetchEstablishments(Map type) async {
-  EstablishmentService _establishmentService = EstablishmentService();
-  ApiResponse response = await _establishmentService.index(type: type['label']);
-  return compute(parseEstablishments, response.data);
+    EstablishmentService _establishmentService = EstablishmentService();
+    ApiResponse response = await _establishmentService.index(type: type['label']);
+    return compute(parseEstablishments, response.data);
 }
 
 List<Establishment> parseEstablishments(dynamic responseBody) {
