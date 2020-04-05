@@ -1,3 +1,0 @@
-class StartLoading{}
-
-class StopLoading{}

@@ -94,7 +94,6 @@ class _NewTypeState extends State<NewType> {
                               controller: _controller,
                               labelText: "Outlet Name",
                               hintText: "Please type the outlet name here",
-                              validationMessage: "Outlet name is a mandatory field.",
                               keyboardType: TextInputType.text,
                             ),
                             InputText(
@@ -102,7 +101,6 @@ class _NewTypeState extends State<NewType> {
                               controller: _controller,
                               labelText: "Mobile Number",
                               hintText: "Enter the 10 digit mobile number",
-                              validationMessage: "Please enter 10 digit mobile number.",
                               keyboardType: TextInputType.phone,
                             ),
                             InputSelect(

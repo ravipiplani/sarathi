@@ -2,16 +2,12 @@ import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_picker_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:yathaarth/actions/auth_actions.dart';
-import 'package:yathaarth/actions/loading_actions.dart';
 import 'package:yathaarth/components/heading.dart';
+import 'package:yathaarth/components/input_text.dart';
 import 'package:yathaarth/components/input_title.dart';
 import 'package:yathaarth/keys.dart';
-import 'package:yathaarth/models/app_state.dart';
-import 'package:yathaarth/routes.dart';
+import 'package:yathaarth/router.dart';
 import 'package:yathaarth/screens/otp.dart';
-import 'package:redux/redux.dart';
 
 class Auth extends StatefulWidget {
   Auth({Key key}) : super(key: key);
@@ -21,15 +17,39 @@ class Auth extends StatefulWidget {
 }
 
 class _AuthState extends State<Auth> {
-  TextEditingController _controller = TextEditingController();
-  String verificationId;
   String countryCode = "+91";
-  final _formKey = GlobalKey<FormState>();
+  String mobile;
+  bool isLoading;
+
+  final TextEditingController _controller = TextEditingController();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final FocusNode _focusNode = FocusNode();
+
+  @override
+  void initState() {
+    isLoading = false;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.chevron_right, size: 36, color: Colors.white),
+        onPressed: () {
+          if (_formKey.currentState.validate()) {
+            setState(() {
+              isLoading = true;
+            });
+            mobile = _controller.text;
+            _focusNode.unfocus();
+            sendOTP();
+          }
+        }
+      ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -65,22 +85,15 @@ class _AuthState extends State<Auth> {
                                   padding: EdgeInsets.only(right: 10),
                                   child: InkWell(
                                     onTap: _openCountryPickerDialog,
-                                    child: Text(countryCode, style: Theme.of(context).textTheme.headline.copyWith(fontWeight: FontWeight.w400, color: Theme.of(context).accentColor)),
+                                    child: Text(countryCode, style: Theme.of(context).textTheme.headline5.copyWith(fontWeight: FontWeight.w400, color: Theme.of(context).accentColor)),
                                   )
                                 ),
                                 Expanded(
-                                  child: TextFormField(
+                                  child: InputText(
+                                    focusNode: _focusNode,
                                     maxLength: 10,
                                     controller: _controller,
-                                    decoration: InputDecoration(
-                                      hintText: "Mobile No"
-                                    ),
-                                    validator: (value) {
-                                      if (value.isEmpty) {
-                                        return "Please enter 10 digit mobile number.";
-                                      }
-                                      return null;
-                                    },
+                                    labelText: "Mobile No",
                                     keyboardType: TextInputType.phone,
                                   ),
                                 )
@@ -93,29 +106,6 @@ class _AuthState extends State<Auth> {
                   ],
                 )
               )
-            ),
-            Container(
-              padding: EdgeInsets.only(bottom: 20),
-              child: StoreConnector<AppState, _AuthViewModel>(
-                converter: _AuthViewModel.fromStore,
-                builder: (BuildContext context, _AuthViewModel viewModel) {
-                  return viewModel.isLoading ? CircularProgressIndicator() : InkWell(
-                    child: CircleAvatar(
-                      backgroundColor: Theme.of(context).accentColor,
-                      radius: 30,
-                      child: Icon(Icons.chevron_right, size: 36, color: Colors.white)
-                    ),
-                    onTap: () {
-                      if (_formKey.currentState.validate()) {
-                        viewModel.sendOtp(countryCode + _controller.text);
-                        Scaffold.of(context).showSnackBar(SnackBar(
-                          content: Text('Sending OTP...')
-                        ));
-                      }
-                    },
-                  );
-                },
-              ),
             ),
             Expanded(
               child: Text("Terms & Conditions", style: Theme.of(context).textTheme.caption)
@@ -149,38 +139,32 @@ class _AuthState extends State<Auth> {
       )
     );
   }
-}
 
-class _AuthViewModel {
-  final bool isLoading;
-  final Function(String) sendOtp;
-
-  _AuthViewModel({
-    this.isLoading,
-    this.sendOtp
-  });
-
-  static _AuthViewModel fromStore(Store<AppState> store) {
-    final PhoneCodeSent smsOTPSent = (String verId, [int forceCodeResend]) {
-      store.dispatch(StopLoading());
-      Keys.navigatorKey.currentState.pushNamed(Routes.otpScreen, arguments: OtpArguments(verificationId: verId));
-    };
-    return _AuthViewModel(
-      isLoading: store.state.isLoading,
-      sendOtp: (String mobile) {
-        store.dispatch(SendOTP(
-          phone: mobile,
+  void sendOTP() {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    try {
+      _auth.verifyPhoneNumber(
+          phoneNumber: '+91$mobile',
+          codeAutoRetrievalTimeout: (String verId) {},
           codeSent: smsOTPSent,
-          codeAutoRetrievalTimeout: (String verId) {
-          },
+          timeout: const Duration(seconds: 20),
           verificationCompleted: (AuthCredential phoneAuthCredential) {
             print(phoneAuthCredential);
           },
           verificationFailed: (AuthException exception) {
             print('${exception.message}');
-          }
-        ));
-      }
-    );
+          });
+    } catch (error) {
+      print(error);
+    }
+  }
+
+  void smsOTPSent(String verId, [int forceCodeResend]) {
+    setState(() {
+      isLoading = false;
+    });
+    Keys.navigatorKey.currentState.pushNamed(Router.otpRoute,
+        arguments: OtpArguments(verificationId: verId, mobile: mobile));
+    return;
   }
 }

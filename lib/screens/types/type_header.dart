@@ -76,7 +76,7 @@ class TypeHeader implements SliverPersistentHeaderDelegate{
               opacity: 1.0 - max(0.0, shrinkOffset) / maxExtent,
               child: Column(
                 children: <Widget>[
-                  shrinkOffset > 95.0 ? Container() : Text("Ravi Piplani", style: Theme.of(context).textTheme.title,),
+                  shrinkOffset > 95.0 ? Container() : Text("Ravi Piplani", style: Theme.of(context).textTheme.headline6,),
                   shrinkOffset > 50.0 ? Container() : Text(establishment.mobile, style: Theme.of(context).textTheme.caption.copyWith(color: Theme.of(context).accentColor)),
                   shrinkOffset > 30.0 ? Container() : Row(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -85,7 +85,7 @@ class TypeHeader implements SliverPersistentHeaderDelegate{
                       Container(
                         width: 200,
                         padding: EdgeInsets.only(top: 5),
-                        child: Text("628, 2nd Floor, Sector 9A, Gurgaon, Haryana - 122018", style: Theme.of(context).textTheme.body1,)
+                        child: Text("628, 2nd Floor, Sector 9A, Gurgaon, Haryana - 122018", style: Theme.of(context).textTheme.bodyText2,)
                       )
                     ],
                   )
@@ -147,7 +147,7 @@ class TypeHeader implements SliverPersistentHeaderDelegate{
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.only(bottom: 10),
-                  child: Text("Current Stock", style: Theme.of(context).textTheme.title)
+                  child: Text("Current Stock", style: Theme.of(context).textTheme.headline6)
                 ),
                 Expanded(
                   child: ListView.builder(

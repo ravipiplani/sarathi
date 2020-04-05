@@ -26,14 +26,14 @@ class ListItem extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(title, style: Theme.of(context).textTheme.subtitle),
+                Text(title, style: Theme.of(context).textTheme.subtitle2),
                 Padding(
                   padding: EdgeInsets.only(top: 5),
                   child: Text(desc, style: Theme.of(context).textTheme.caption)
                 )
               ],
             ),
-            Text(subTitle, style: Theme.of(context).textTheme.subtitle.copyWith(color: Theme.of(context).primaryColor)),
+            Text(subTitle, style: Theme.of(context).textTheme.subtitle2.copyWith(color: Theme.of(context).primaryColor)),
           ],
         )
       )

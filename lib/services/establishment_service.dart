@@ -1,16 +1,15 @@
-import 'package:yathaarth/models/api_response.dart';
+import 'package:yathaarth/models/responses/api_response.dart';
 import 'package:yathaarth/services/api_client.dart';
 
-class EstablishmentService {
-  ApiClient _client = ApiClient();
+class EstablishmentService extends ApiClient {
 
   Future<ApiResponse> index({String type}) async {
-    final response = await _client.get("establishments?type=$type");
+    final ApiResponse response = await get("establishments?type=$type", isProtected: true);
     return response;
   }
 
   Future<ApiResponse> show({int id}) async {
-    final response = await _client.get("establishments/$id");
+    final ApiResponse response = await get("establishments/$id", isProtected: true);
     return response;
   }
 }

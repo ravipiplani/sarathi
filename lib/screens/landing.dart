@@ -1,33 +1,29 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:yathaarth/keys.dart';
-import 'package:yathaarth/routes.dart';
+import 'package:yathaarth/router.dart';
 
-class Splash extends StatefulWidget {
+class Landing extends StatelessWidget {
   final bool isAuthenticated;
-  Splash({Key key, this.isAuthenticated}) : super(key: key);
+  Landing({Key key, this.isAuthenticated}) : super(key: key);
 
-  @override
-  _SplashState createState() => _SplashState();
-}
-
-class _SplashState extends State<Splash> {
-  @override
-  void initState() {
-    super.initState();
-    Timer(Duration(seconds: 1), () {
-      if (widget.isAuthenticated) {
-        Keys.navigatorKey.currentState.pushReplacementNamed(Routes.homeScreen);
-      }
-      else {
-        Keys.navigatorKey.currentState.pushReplacementNamed(Routes.authScreen);
-      }
-    });
+  Future<bool> checkIfAuthenticated() async {
+    final FirebaseUser user = await FirebaseAuth.instance.currentUser();
+    return user != null;
   }
 
   @override
   Widget build(BuildContext context) {
+    checkIfAuthenticated().then((bool isAuthenticated) {
+       if (isAuthenticated) {
+         Keys.navigatorKey.currentState.pushReplacementNamed(Router.homeRoute);
+       } else {
+         Keys.navigatorKey.currentState.pushReplacementNamed(Router.authRoute);
+       }
+    });
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: Stack(
@@ -63,20 +59,20 @@ class _SplashState extends State<Splash> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(top: 60),
-                      child: Text("Yathaarth", style: Theme.of(context).textTheme.display3,)
+                        padding: EdgeInsets.only(top: 60),
+                        child: Text("Yathaarth", style: Theme.of(context).textTheme.headline2,)
                     )
                   ],
                 ),
               ),
               Expanded(
-                flex: 1,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    CircularProgressIndicator()
-                  ],
-                )
+                  flex: 1,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      CircularProgressIndicator()
+                    ],
+                  )
               )
             ],
           )

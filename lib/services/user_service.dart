@@ -1,12 +1,13 @@
+import 'package:yathaarth/models/responses/api_response.dart';
+import 'package:yathaarth/models/responses/get_token_response.dart';
 import 'package:yathaarth/services/api_client.dart';
 
-class UserService {
-  ApiClient _client = ApiClient();
-  
-  Future getToken({String uid}) async {
-    final response = await _client.post("airlock/token", {
-      "uid": uid
+class UserService extends ApiClient {
+
+  Future<GetTokenResponse> getToken({String idToken}) async {
+    final ApiResponse response = await post("airlock/token", {
+      'id_token': idToken,
     });
-    return response;
+    return GetTokenResponse.fromJson(response.data);
   }
 }

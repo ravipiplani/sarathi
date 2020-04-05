@@ -35,7 +35,7 @@ class _ProfileState extends State<Profile> {
               title: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Text("Ravi Piplani", style: Theme.of(context).textTheme.title.copyWith(color: Theme.of(context).accentColor)),
+                  Text("Ravi Piplani", style: Theme.of(context).textTheme.headline6.copyWith(color: Theme.of(context).accentColor)),
                   Text("7042401008", style: Theme.of(context).textTheme.caption.copyWith(color: Theme.of(context).primaryColorLight))
                 ],
               )

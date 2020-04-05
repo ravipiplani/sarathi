@@ -10,7 +10,7 @@ class InputTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: <Widget>[
-        Text(this.title, style: Theme.of(context).textTheme.title),
+        Text(this.title, style: Theme.of(context).textTheme.headline6),
         Container(
           padding: EdgeInsets.only(top: 4),
           width: 240,

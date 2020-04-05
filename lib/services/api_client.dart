@@ -1,22 +1,25 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
 import 'package:yathaarth/exceptions/bad_request_exception.dart';
 import 'package:yathaarth/exceptions/fetch_data_exception.dart';
 import 'package:yathaarth/exceptions/unauthorized_exception.dart';
-import 'package:yathaarth/models/api_response.dart';
+import 'package:yathaarth/models/responses/api_response.dart';
+import 'package:yathaarth/utils/environment_utils.dart';
 
 class ApiClient {
-  final String _baseUrl = "http://192.168.1.4/api/";
+  final String _baseUrl = EnvironmentUtil.getValue('API_EP');
+  Map<String, String> headers = {'Accept': 'application/json'};
 
-  Future<dynamic> get(String url) async {
-    var responseJson;
+  Future<ApiResponse> get(String url, {bool isProtected = false}) async {
+    if (isProtected) {
+      headers.addAll({'Authorization': 'Bearer ${await _getToken()}'});
+    }
+    ApiResponse responseJson;
     try {
-      final response = await http.get(_baseUrl + url, headers: {
-        "Accept": "application/json",
-        "Authorization": "Bearer 2uRCivBCCOqOvZJUdyJar4tXZftggSWbvUUuNLmFpl4GTa8jzjMijfAF4hvmtuP2abHgIJGBUgVSlmLG"
-      });
+      final response = await http.get(_baseUrl + url, headers: headers);
       responseJson = _returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet connection');
@@ -24,21 +27,52 @@ class ApiClient {
     return responseJson;
   }
 
-  Future<dynamic> post(String url, dynamic body) async {
-    print('Api Post, url $url');
-    var responseJson;
+  Future<ApiResponse> post(String url, dynamic body, {bool isProtected = false}) async {
+    if (isProtected) {
+      headers.addAll({'Authorization': 'Bearer ${await _getToken()}'});
+    }
+    ApiResponse responseJson;
     try {
-      final response = await http.post(_baseUrl + url, body: body, headers: {
-        "Accept": "application/json",
-        "Authorization": "Bearer 2uRCivBCCOqOvZJUdyJar4tXZftggSWbvUUuNLmFpl4GTa8jzjMijfAF4hvmtuP2abHgIJGBUgVSlmLG"
-      });
+      final response = await http.post(_baseUrl + url, body: body, headers: headers);
       responseJson = _returnResponse(response);
     } on SocketException {
-      print('No net');
       throw FetchDataException('No Internet connection');
     }
-    print('api post.');
     return responseJson;
+  }
+
+  Future<ApiResponse> put(String url, dynamic body, {bool isProtected = false}) async {
+    if (isProtected) {
+      headers.addAll({'Authorization': 'Bearer ${await _getToken()}'});
+    }
+    ApiResponse responseJson;
+    try {
+      final http.Response response = await http.put(_baseUrl + url, body: body, headers: headers);
+      responseJson = _returnResponse(response);
+    } on SocketException {
+      throw FetchDataException('No Internet connection');
+    }
+    return responseJson;
+  }
+
+  Future<ApiResponse> delete(String url, {bool isProtected = false}) async {
+    if (isProtected) {
+      headers.addAll({'Authorization': 'Bearer ${await _getToken()}'});
+    }
+    ApiResponse apiResponse;
+    try {
+      final http.Response response = await http.delete(_baseUrl + url, headers: headers);
+      apiResponse = _returnResponse(response);
+    } on SocketException {
+      throw FetchDataException('No Internet connection');
+    }
+    return apiResponse;
+  }
+
+  Future<String> _getToken() async {
+    final FlutterSecureStorage _storage = FlutterSecureStorage();
+    final String token = await _storage.read(key: 'token');
+    return token;
   }
 
   dynamic _returnResponse(http.Response response) {

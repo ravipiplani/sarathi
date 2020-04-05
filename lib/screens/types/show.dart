@@ -4,7 +4,7 @@ import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:yathaarth/components/list_item.dart';
 import 'package:yathaarth/components/product_counter.dart';
 import 'package:yathaarth/keys.dart';
-import 'package:yathaarth/models/api_response.dart';
+import 'package:yathaarth/models/responses/api_response.dart';
 import 'package:yathaarth/models/establishment.dart';
 import 'package:yathaarth/screens/types/type_header.dart';
 import 'package:yathaarth/services/establishment_service.dart';
@@ -176,7 +176,7 @@ class _ShowTypeState extends State<ShowType> {
               children: <Widget>[
                 Padding(
                   padding: EdgeInsets.only(bottom: 10),
-                  child: Text("Stock", style: Theme.of(context).textTheme.title)
+                  child: Text("Stock", style: Theme.of(context).textTheme.headline6)
                 ),
                 Expanded(
                   child: ListView.builder(

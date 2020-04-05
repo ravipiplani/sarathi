@@ -14,8 +14,8 @@ class ProductItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Text('$label', style: Theme.of(context).textTheme.subhead,),
-          Text('$count', style: Theme.of(context).textTheme.title,)
+          Text('$label', style: Theme.of(context).textTheme.subtitle1,),
+          Text('$count', style: Theme.of(context).textTheme.headline6,)
         ],
       ),
     );

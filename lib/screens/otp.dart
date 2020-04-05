@@ -1,20 +1,28 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_redux/flutter_redux.dart';
-import 'package:yathaarth/actions/auth_actions.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:yathaarth/components/heading.dart';
+import 'package:yathaarth/components/input_text.dart';
 import 'package:yathaarth/components/input_title.dart';
-import 'package:yathaarth/models/app_state.dart';
-import 'package:redux/redux.dart';
+import 'package:yathaarth/keys.dart';
+import 'package:yathaarth/models/responses/api_response.dart';
+import 'package:yathaarth/models/responses/get_token_response.dart';
+import 'package:yathaarth/router.dart';
+import 'package:yathaarth/services/user_service.dart';
 
 class OtpArguments {
   final String verificationId;
+  final String mobile;
 
-  OtpArguments({this.verificationId});
+  OtpArguments({this.verificationId, this.mobile});
 }
 
 class Otp extends StatefulWidget {
-  Otp({Key key}) : super(key: key);
+  Otp({Key key, this.verificationId, this.mobile}) : super(key: key);
+
+  final String verificationId;
+  final String mobile;
 
   @override
   _OtpState createState() => _OtpState();
@@ -22,37 +30,48 @@ class Otp extends StatefulWidget {
 
 class _OtpState extends State<Otp> {
   final TextEditingController _textFieldController = TextEditingController();
-  String phoneNo;
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  final _storage = FlutterSecureStorage();
+  final FocusNode _focusNode = FocusNode();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   String otp;
-  String verificationId;
+  bool isLoading;
+
+  @override
+  void initState() {
+    isLoading = false;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final OtpArguments args = ModalRoute.of(context).settings.arguments;
-    final _scaffoldKey = GlobalKey<ScaffoldState>();
-    final _focusNode = FocusNode();
-    final _formKey = GlobalKey<FormState>();
-
-    verificationId = args.verificationId;
     return Scaffold(
       key: _scaffoldKey,
       resizeToAvoidBottomInset: false,
-      body: StoreConnector<AppState, _OtpViewModel>(
-        converter: _OtpViewModel.fromStore,
-        builder: (BuildContext context, _OtpViewModel viewModel) {
-          return SafeArea(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  padding: EdgeInsets.all(40),
-                  child: Heading(
-                    text: "Yathaarth",
-                    size: 48,
-                  )
-                ),
-                Expanded(
-                  child: Align(
+      floatingActionButton: FloatingActionButton(
+          child: Icon(Icons.chevron_right, size: 36, color: Colors.white),
+          onPressed: () {
+            if (_formKey.currentState.validate()) {
+              setState(() {
+                isLoading = true;
+              });
+              verifyOTP(widget.verificationId, _textFieldController.text);
+            }
+          }
+      ),
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Container(
+                padding: EdgeInsets.all(40),
+                child: Heading(
+                  text: "Yathaarth",
+                  size: 48,
+                )
+            ),
+            Expanded(
+                child: Align(
                     alignment: Alignment.center,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -65,82 +84,57 @@ class _OtpState extends State<Otp> {
                           key: _formKey,
                           child: Container(
                             padding: EdgeInsets.all(32),
-                            width: 252,
-                            child: TextFormField(
+                            child: InputText(
                               focusNode: _focusNode,
                               maxLength: 6,
                               controller: _textFieldController,
                               textAlign: TextAlign.center,
-                              decoration: InputDecoration(
-                                hintText: 'OOOOOO',
-                              ),
-                              validator: (value) {
-                                if (value.isEmpty) {
-                                  return "Please enter 6 digit otp received on " + viewModel.mobile + ".";
-                                }
-                                return null;
-                              },
-                              style: TextStyle(letterSpacing: 20),
+                              hintText: 'OOOOOO',
+                              textStyle: TextStyle(letterSpacing: 20),
                               keyboardType: TextInputType.number
                             ),
                           ),
                         )
                       ],
                     )
-                  )
-                ),
-                Container(
-                  padding: EdgeInsets.only(bottom: 20),
-                  child: viewModel.isLoading ? CircularProgressIndicator() : InkWell(
-                    child: CircleAvatar(
-                      backgroundColor: Theme.of(context).accentColor,
-                      radius: 30,
-                      child: Icon(Icons.chevron_right, size: 36, color: Colors.white)
-                    ),
-                    onTap: () {
-                      if (_formKey.currentState.validate()) {
-                        viewModel.verifyOtp(verificationId, _textFieldController.text, _scaffoldKey);
-                      }
-                    },
-                  )
-                ),
-                Expanded(
-                  child: Text("Didn't receive the OTP?", style: Theme.of(context).textTheme.caption)
                 )
-              ]
+            ),
+            Expanded(
+                child: Text("Didn't receive the OTP?", style: Theme.of(context).textTheme.caption)
             )
-          );
-        }
+          ]
+        )
       )
     );
   }
-}
 
-class _OtpViewModel {
-  final bool isLoading;
-  final bool hasLogInFailed;
-  final String mobile;
-  final Function(String, String, GlobalKey) verifyOtp;
+  Future<void> verifyOTP(String verificationId, String otp) async {
+    final FirebaseAuth _auth = FirebaseAuth.instance;
+    try {
+      final AuthCredential credential = PhoneAuthProvider.getCredential(
+        verificationId: verificationId,
+        smsCode: otp,
+      );
+      final FirebaseUser user = (await _auth.signInWithCredential(credential)).user;
+      final IdTokenResult idToken = await user.getIdToken();
+      final GetTokenResponse data = await getToken(idToken.token, 'dealer');
+      await _storage.write(key: 'token', value: data.token);
+      setState(() {
+        isLoading = false;
+      });
+      Keys.navigatorKey.currentState.pushNamedAndRemoveUntil(Router.homeRoute, (Route<dynamic> route) => false);
+    } catch (error) {
+      print(error);
+      _scaffoldKey.currentState.showSnackBar(SnackBar(
+        content: Text('Verification failed.'),
+        backgroundColor: Colors.black,
+      ));
+    }
+  }
 
-  _OtpViewModel({
-    this.isLoading,
-    this.hasLogInFailed,
-    this.mobile,
-    this.verifyOtp
-  });
-
-  static _OtpViewModel fromStore(Store<AppState> store) {
-    return _OtpViewModel(
-      isLoading: store.state.isLoading,
-      hasLogInFailed: store.state.authState.hasLogInFailed,
-      mobile: store.state.authState.mobile,
-      verifyOtp: (verificationId, otp, key) {
-        store.dispatch(VerifyOTP(
-          otp: otp,
-          verificationId: verificationId,
-          key: key
-        ));
-      }
-    );
+  Future<GetTokenResponse> getToken(String idToken, String type) async {
+    final UserService _authService = UserService();
+    final GetTokenResponse response = await _authService.getToken(idToken: idToken);
+    return response;
   }
 }

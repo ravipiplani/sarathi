@@ -3,21 +3,23 @@ import 'package:flutter/material.dart';
 class InputText extends StatelessWidget {
   final String labelText;
   final String hintText;
-  final String validationMessage;
   final TextInputType keyboardType;
   final int maxLength;
   final TextEditingController controller;
   final TextAlign textAlign;
+  final FocusNode focusNode;
+  final TextStyle textStyle;
 
   const InputText({
     Key key,
     this.labelText,
     this.hintText,
-    this.validationMessage,
     this.keyboardType,
     this.maxLength,
     this.controller,
-    this.textAlign = TextAlign.left
+    this.textAlign,
+    this.focusNode,
+    this.textStyle
   }) : super(key: key);
 
   @override
@@ -25,22 +27,25 @@ class InputText extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: TextFormField(
-        maxLength: maxLength,
-        controller: controller,
+        focusNode: focusNode ?? null,
+        maxLength: maxLength ?? 255,
+        controller: controller ?? null,
+        style: textStyle ?? null,
         decoration: InputDecoration(
-          hintText: hintText,
+          hintText: hintText ?? null,
           counter: Offstage(),
-          labelText: labelText,
-          floatingLabelBehavior: FloatingLabelBehavior.always
+          filled: true,
+          labelText: labelText ?? null,
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
         ),
         validator: (value) {
           if (value.isEmpty) {
-            return validationMessage;
+            return '$labelText is a required field.';
           }
           return null;
         },
-        keyboardType: keyboardType,
-        textAlign: textAlign,
+        keyboardType: keyboardType ?? TextInputType.text,
+        textAlign: textAlign ?? TextAlign.left,
       )
     );
   }

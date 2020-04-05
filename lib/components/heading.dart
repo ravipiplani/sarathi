@@ -15,7 +15,7 @@ class Heading extends StatelessWidget {
     }
     return Container(
       width: 300,
-      child: Text(this.text, style: Theme.of(context).textTheme.display3.copyWith(fontSize: this.size, color: c), textAlign: TextAlign.center,)
+      child: Text(this.text, style: Theme.of(context).textTheme.headline3.copyWith(fontSize: this.size, color: c), textAlign: TextAlign.center,)
     );
   }
 }

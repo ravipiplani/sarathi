@@ -1,12 +1,12 @@
-import 'dart:convert';
-import 'dart:core';
 import 'dart:core';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:yathaarth/components/filled_input.dart';
 import 'package:yathaarth/components/stat_square.dart';
-import 'package:yathaarth/models/api_response.dart';
+import 'package:yathaarth/models/responses/api_response.dart';
+import 'package:yathaarth/models/responses/home_response.dart';
 import 'package:yathaarth/services/home_service.dart';
 
 class HomeIndex extends StatefulWidget {
@@ -28,14 +28,14 @@ class _HomeIndexState extends State<HomeIndex> {
             padding: EdgeInsets.all(40),
             child: Align(
               alignment: Alignment.center,
-              child: Text("Yathaarth", style: Theme.of(context).textTheme.display3)
+              child: Text("Yathaarth", style: Theme.of(context).textTheme.headline2)
             )
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 32),
             child: FilledInput(hintText: "Search")
           ),
-          FutureBuilder<List<dynamic>>(
+          FutureBuilder<List<HomeResponse>>(
             future: getHomeData(),
             builder: (context, snapshot) {
               if (snapshot.hasError) print(snapshot.error);
@@ -53,7 +53,7 @@ class _HomeIndexState extends State<HomeIndex> {
     );
   }
 
-  Widget createHomeGrid(List<Map<String, dynamic>> data) {
+  Widget createHomeGrid(List<HomeResponse> data) {
     return GridView.count(
       padding: EdgeInsets.all(32),
       crossAxisCount: 2,
@@ -61,20 +61,13 @@ class _HomeIndexState extends State<HomeIndex> {
       mainAxisSpacing: 32,
       shrinkWrap: true,
       primary: true,
-      children: List.generate(data.length, (index) {
-        return StatSquare(type: data[index]);
-      }),
+      children: data.map((e) => StatSquare(type: e)).toList(),
     );
   }
 }
 
-Future<List<Map<String, dynamic>>> getHomeData() async {
+Future<List<HomeResponse>> getHomeData() async {
   final HomeService _homeService = HomeService();
-  final ApiResponse response = await _homeService.getHomeData();
-  return compute(parseHomeData, response.data);
-}
-
-List<Map<String, dynamic>> parseHomeData(dynamic responseBody) {
-  final parsed = responseBody.cast<Map<String, dynamic>>();
-  return parsed.toList();
+  final List<HomeResponse> response = await _homeService.getHomeData();
+  return response;
 }

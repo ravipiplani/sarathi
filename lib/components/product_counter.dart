@@ -13,7 +13,7 @@ class ProductCounter extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
-          Text('$label', style: Theme.of(context).textTheme.subhead,),
+          Text('$label', style: Theme.of(context).textTheme.subtitle1,),
           Counter(count: count)
         ],
       ),
