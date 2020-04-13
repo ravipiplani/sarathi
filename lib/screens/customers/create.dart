@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:yathaarth/components/heading.dart';
-import 'package:yathaarth/components/input_select.dart';
 import 'package:yathaarth/components/input_title.dart';
 import 'package:yathaarth/keys.dart';
 
@@ -14,7 +13,6 @@ class NewCustomer extends StatefulWidget {
 
 class _NewCustomerState extends State<NewCustomer> {
   final GlobalKey<FormBuilderState> _fbKey = GlobalKey<FormBuilderState>();
-  TextEditingController _controller = TextEditingController();
   final List<String> _beats = ["Beat 1", "Beat 2", "Beat 3", "Beat 4", "Beat 5"];
   final List<String> _distributors = ["Distributor 1", "Distributor 2", "Distributor 3", "Distributor 4", "Distributor 5"];
   final List<String> _stockists = ["Stockist 1", "Stockist 2", "Stockist 3", "Stockist 4", "Stockist 5"];
