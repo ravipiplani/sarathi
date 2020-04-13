@@ -1,15 +1,14 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:yathaarth/models/user.dart';
 
 part 'home_response.g.dart';
 
 @JsonSerializable()
 class HomeResponse {
-  int id;
-  String label;
-  String color;
-  int count;
+  Map<String, int> stats;
+  User user;
 
-  HomeResponse({this.id, this.label, this.color, this.count});
+  HomeResponse({this.stats, this.user});
 
   factory HomeResponse.fromJson(Map<String, dynamic> json) => _$HomeResponseFromJson(json);
 
@@ -17,6 +16,6 @@ class HomeResponse {
 
   @override
   String toString() {
-    return 'HomeResponse{id: $id, label: $label, color: $color, count: $count}';
+    return 'HomeResponse{user: $user, stats: $stats}';
   }
 }

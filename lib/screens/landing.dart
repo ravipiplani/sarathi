@@ -17,6 +17,8 @@ class Landing extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     checkIfAuthenticated().then((bool isAuthenticated) {
+      Keys.navigatorKey.currentState.pushReplacementNamed(Router.homeRoute);
+      return;
        if (isAuthenticated) {
          Keys.navigatorKey.currentState.pushReplacementNamed(Router.homeRoute);
        } else {

@@ -2,8 +2,8 @@ import 'package:country_pickers/country.dart';
 import 'package:country_pickers/country_picker_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:yathaarth/components/heading.dart';
-import 'package:yathaarth/components/input_text.dart';
 import 'package:yathaarth/components/input_title.dart';
 import 'package:yathaarth/keys.dart';
 import 'package:yathaarth/router.dart';
@@ -89,12 +89,15 @@ class _AuthState extends State<Auth> {
                                   )
                                 ),
                                 Expanded(
-                                  child: InputText(
+                                  child: FormBuilderTextField(
+                                    attribute: 'mobile',
                                     focusNode: _focusNode,
                                     maxLength: 10,
                                     controller: _controller,
-                                    labelText: "Mobile No",
                                     keyboardType: TextInputType.phone,
+                                    decoration: InputDecoration(
+                                      labelText: "Mobile No"
+                                    ),
                                   ),
                                 )
                               ],

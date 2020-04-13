@@ -1,12 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:yathaarth/components/heading.dart';
-import 'package:yathaarth/components/input_text.dart';
 import 'package:yathaarth/components/input_title.dart';
 import 'package:yathaarth/keys.dart';
-import 'package:yathaarth/models/responses/api_response.dart';
 import 'package:yathaarth/models/responses/get_token_response.dart';
 import 'package:yathaarth/router.dart';
 import 'package:yathaarth/services/user_service.dart';
@@ -84,14 +83,17 @@ class _OtpState extends State<Otp> {
                           key: _formKey,
                           child: Container(
                             padding: EdgeInsets.all(32),
-                            child: InputText(
+                            child: FormBuilderTextField(
+                              attribute: 'otp',
                               focusNode: _focusNode,
                               maxLength: 6,
                               controller: _textFieldController,
                               textAlign: TextAlign.center,
-                              hintText: 'OOOOOO',
-                              textStyle: TextStyle(letterSpacing: 20),
-                              keyboardType: TextInputType.number
+                              keyboardType: TextInputType.number,
+                              decoration: InputDecoration(
+                                hintText: 'OOOOOO',
+                                hintStyle: TextStyle(letterSpacing: 20),
+                              ),
                             ),
                           ),
                         )

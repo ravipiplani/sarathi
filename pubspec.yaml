@@ -21,12 +21,13 @@ dependencies:
     sdk: flutter
 
   country_pickers: ^1.2.0
-  permission_handler: ^5.0.0+hotfix.2
+  permission_handler: ^5.0.0+hotfix.3
   flutter_speed_dial: ^1.2.5
   http: ^0.12.0+4
   flutter_dotenv: ^2.1.0
   device_info: ^0.4.2+1
-  flutter_secure_storage: ^3.3.1+1
+  flutter_secure_storage: ^3.3.2
+  flutter_form_builder: ^3.8.2
 
   firebase_core: ^0.4.4+3
   firebase_analytics: ^5.0.11

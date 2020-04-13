@@ -6,19 +6,16 @@ part 'establishment_type.g.dart';
 class EstablishmentType {
   final int id;
   final String name;
-  final String color;
 
   EstablishmentType({
     this.id,
-    this.name,
-    this.color
+    this.name
   });
 
-  EstablishmentType copyWith({int id, String name, String color}) {
+  EstablishmentType copyWith({int id, String name}) {
     return EstablishmentType(
         id: id ?? this.id,
         name: name ?? this.name,
-        color: color ?? this.color
     );
   }
 
@@ -28,6 +25,6 @@ class EstablishmentType {
 
   @override
   String toString() {
-    return 'User{id: $id, name: $name, color: $color}';
+    return 'EstablishmentType{id: $id, name: $name}';
   }
 }

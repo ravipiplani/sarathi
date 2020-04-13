@@ -10,12 +10,16 @@ part 'establishment.g.dart';
 class Establishment {
   final int id;
   final String name;
+  @JsonKey(name: 'contact_name')
   final String contactName;
   final String mobile;
   final String gst;
   final String pan;
   final String remarks;
+  @JsonKey(name: 'parent_establishment_id')
   final String parentEstablishmentId;
+  @JsonKey(name: 'registration_date')
+  final DateTime registrationDate;
   final User assignee;
   final Status status;
   final EstablishmentType type;
@@ -31,27 +35,11 @@ class Establishment {
     this.remarks,
     this.parentEstablishmentId,
     this.assignee,
+    this.registrationDate,
     this.status,
     this.type,
     this.address
   });
-
-  Establishment copyWith({int id, String name, String contactName, String mobile, String gst, String pan, String remarks, int parentEstablishmentId, User assignee, Status status, EstablishmentType type, Address address}) {
-    return Establishment(
-      id: id ?? this.id,
-      name: name ?? this.name,
-      contactName: contactName ?? this.contactName,
-      mobile: mobile ?? this.mobile,
-      gst: gst ?? this.gst,
-      pan: pan ?? this.pan,
-      remarks: remarks ?? this.remarks,
-      parentEstablishmentId: parentEstablishmentId ?? this.parentEstablishmentId,
-      assignee: assignee ?? this.assignee,
-      status: status ?? this.status,
-      type: type ?? this.type,
-      address: address ?? this.address
-    );
-  }
 
   factory Establishment.fromJson(Map<String, dynamic> json) => _$EstablishmentFromJson(json);
 
@@ -59,6 +47,6 @@ class Establishment {
 
   @override
   String toString() {
-    return 'Establishment{id: $id, name: $name}';
+    return 'Establishment{id: $id, name: $name, contactName: $contactName, mobile: $mobile, gst: $gst, pan: $pan, remarks: $remarks, parentEstablishmentId: $parentEstablishmentId, assignee: $assignee, registrationDate: $registrationDate, status: $status, type: $type, address: $address}';
   }
 }

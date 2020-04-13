@@ -7,12 +7,12 @@ import 'package:yathaarth/components/product_item.dart';
 import 'package:yathaarth/keys.dart';
 import 'package:yathaarth/models/establishment.dart';
 
-class TypeHeader implements SliverPersistentHeaderDelegate{
+class CustomerHeader implements SliverPersistentHeaderDelegate{
   final double minExtent;
   final double maxExtent;
   final Establishment establishment;
 
-  TypeHeader({
+  CustomerHeader({
     @required this.minExtent,
     @required this.maxExtent,
     @required this.establishment

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:yathaarth/components/list_item.dart';
 
 class Profile extends StatefulWidget {
   Profile({Key key}) : super(key: key);
@@ -48,7 +47,7 @@ class _ProfileState extends State<Profile> {
         child: ListView.builder(
           itemCount: 10,
           itemBuilder: (context, index) {
-            return ListItem(title: "test", desc: "test desc", subTitle: "Rs 1");
+            return ListTile(title: Text('Test'), subtitle: Text('Test desc'), trailing: Text('Rs 1'));
           },
         )
       )

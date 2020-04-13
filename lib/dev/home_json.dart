@@ -1,5 +1,5 @@
 class HomeJson {
-  static HomeJson _instance = new HomeJson.internal();
+  static HomeJson _instance = HomeJson.internal();
 
   HomeJson.internal();
 
@@ -7,32 +7,18 @@ class HomeJson {
 
   static String getJson() {
     return '''
-      [
-        {
-            "id": 1,
-            "label": "Retailer",
-            "color": "0xFF4D4D4D",
-            "count": 1
+      {
+        "stats": {
+            "beats": 0,
+            "customers": 2,
+            "orders": 0
         },
-        {
-            "id": 2,
-            "label": "Distributor",
-            "color": "0xFFB1D877",
-            "count": 0
-        },
-        {
-            "id": 3,
-            "label": "Super Stockist",
-            "color": "0xFFF16A70",
-            "count": 1
-        },
-        {
-            "id": "beat",
-            "label": "BEATS",
-            "color": "0xFF8CDCDA",
-            "count": 0
+        "user": {
+            "name": "Labeen Surana",
+            "mobile": "7042401008",
+            "email": "anshu.mahabir@example.org"
         }
-    ]
+      }
     ''';
   }
 }

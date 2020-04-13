@@ -37,13 +37,17 @@ class _AppRootState extends State<AppRoot> {
       headline3: TextStyle(fontFamily: 'Sofia', color: Color(primaryColor))
     ),
     inputDecorationTheme: InputDecorationTheme(
-      hintStyle: TextStyle(
-        color: Colors.grey,
-      )
+      filled: true
     ),
     buttonTheme: ButtonThemeData(
       buttonColor: Color(accentColor),
       textTheme: ButtonTextTheme.primary
-    )
+    ),
+    appBarTheme: AppBarTheme(
+      elevation: 0,
+      actionsIconTheme: IconThemeData(
+        color: Color(accentColor)
+      ),
+    ),
   );
 }

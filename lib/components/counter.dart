@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yathaarth/components/input_text.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class Counter extends StatefulWidget {
   final String count;
@@ -46,9 +46,10 @@ class _CounterState extends State<Counter> {
             padding: EdgeInsets.symmetric(horizontal: 8),
             child: SizedBox(
               width: 60,
-              child: InputText(
+              child: FormBuilderTextField(
                 controller: _textFieldController,
                 textAlign: TextAlign.center,
+                attribute: 'counter',
               )
             )
           ),

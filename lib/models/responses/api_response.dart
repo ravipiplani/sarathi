@@ -28,6 +28,6 @@ class ApiResponse {
 
   @override
   String toString() {
-    return 'ApiResponse{message: $message}';
+    return 'ApiResponse{message: $message, errors: $errors, data: $data}';
   }
 }

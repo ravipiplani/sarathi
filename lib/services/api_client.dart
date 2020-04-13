@@ -11,6 +11,7 @@ import 'package:yathaarth/utils/environment_utils.dart';
 
 class ApiClient {
   final String _baseUrl = EnvironmentUtil.getValue('API_EP');
+  final String _appEnv = EnvironmentUtil.getValue('APP_ENV');
   Map<String, String> headers = {'Accept': 'application/json'};
 
   Future<ApiResponse> get(String url, {bool isProtected = false}) async {
@@ -70,16 +71,21 @@ class ApiClient {
   }
 
   Future<String> _getToken() async {
+    return 'Q4QIBPnfMTcuOFMKFlcV2IoPN17KXod5j6N5Ecl2mIDUFtR7wcqnqZqK08zceI1wYGqIMkiMYSaL1ybN';
     final FlutterSecureStorage _storage = FlutterSecureStorage();
     final String token = await _storage.read(key: 'token');
     return token;
+  }
+
+  bool isEnvLocal() {
+    return _appEnv == 'local';
   }
 
   dynamic _returnResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:
       case 201:
-        var responseJson = ApiResponse.fromJson(json.decode(response.body.toString()));
+        var responseJson = ApiResponse.fromJson(json.decode(response.body.toString()) as Map<String, dynamic>);
         return responseJson;
       case 400:
         throw BadRequestException(response.body.toString());

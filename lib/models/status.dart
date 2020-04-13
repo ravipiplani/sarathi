@@ -25,6 +25,6 @@ class Status {
 
   @override
   String toString() {
-    return 'User{id: $id, name: $name}';
+    return 'Status{id: $id, name: $name}';
   }
 }
