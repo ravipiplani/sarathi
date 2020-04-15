@@ -2,9 +2,10 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:yathaarth/components/product_counter.dart';
+import 'package:yathaarth/components/product_item.dart';
+import 'package:yathaarth/constants/Constants.dart';
 import 'package:yathaarth/keys.dart';
 import 'package:yathaarth/models/establishment.dart';
-import 'package:yathaarth/screens/customers/customer_header.dart';
 import 'package:yathaarth/services/establishment_service.dart';
 
 class CustomerArguments {
@@ -33,42 +34,52 @@ class _CustomerState extends State<Customer> {
     {"label": "Nut Lite", "price": "10"}
   ];
 
+  String customerName;
+
+  @override
+  void initState() {
+    customerName = 'Customer';
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         resizeToAvoidBottomInset: false,
-        body: SafeArea(
-            child: FutureBuilder<Establishment>(
+        appBar: AppBar(
+          title: Text(customerName),
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(Icons.inbox),
+              onPressed: () {
+                _showStock();
+              },
+            )
+          ],
+        ),
+        body: FutureBuilder<Establishment>(
           future: fetchEstablishment(widget.establishmentId),
           builder: (context, snapshot) {
-            Widget header;
-            if (snapshot.hasData) {
-              header = SliverPersistentHeader(
-                pinned: true,
-                floating: true,
-                delegate: CustomerHeader(minExtent: 138, maxExtent: 257, establishment: snapshot.data),
-              );
-            } else {
-              header = SliverToBoxAdapter(child: CircularProgressIndicator());
-            }
-            return CustomScrollView(
-              slivers: <Widget>[
-                header,
-                SliverPadding(
-                  padding: EdgeInsets.only(top: 10),
+            return Column(
+              children: <Widget>[
+                Card(
+                  margin: EdgeInsets.all(Constants.kPadding32),
+                  color: Colors.red,
+                  child: Container(
+                    padding: EdgeInsets.all(Constants.kPadding32),
+                  ),
                 ),
-                SliverFixedExtentList(
-                  itemExtent: 90,
-                  delegate: SliverChildBuilderDelegate(
-                    (BuildContext context, int index) {
+                Expanded(
+                  child: ListView(
+                    children: List<Widget>.generate(10, (index) {
                       return ListTile(title: Text('Test'), subtitle: Text('Test Desc'), trailing: Text('Rs 1'), onTap: () {});
-                    },
+                    }).toList(),
                   ),
                 )
               ],
             );
           },
-        )),
+        ),
         floatingActionButton: SpeedDial(
           // both default to 16
           marginRight: 18,
@@ -164,6 +175,88 @@ class _CustomerState extends State<Customer> {
               ));
         },
         backgroundColor: Colors.transparent);
+  }
+
+  _showStock() {
+    final List<Map> _products = [
+      {
+        "label": "CLEB",
+        "price": "10"
+      },
+      {
+        "label": "CCEB",
+        "price": "10"
+      },
+      {
+        "label": "KHMF",
+        "price": "10"
+      },
+      {
+        "label": "CTMF",
+        "price": "10"
+      },
+      {
+        "label": "SBMF",
+        "price": "10"
+      },
+      {
+        "label": "ORMF",
+        "price": "10"
+      },
+      {
+        "label": "Nut Lite",
+        "price": "10"
+      }
+    ];
+    showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        builder: (BuildContext context) {
+          return FractionallySizedBox(
+              heightFactor: 0.8,
+              child: Container(
+                padding: EdgeInsets.all(32),
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.vertical(top: Radius.circular(25))
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Padding(
+                        padding: EdgeInsets.only(bottom: 10),
+                        child: Text("Current Stock", style: Theme.of(context).textTheme.headline6)
+                    ),
+                    Expanded(
+                        child: ListView.builder(
+                          itemCount: _products.length,
+                          itemBuilder: (context, index) {
+                            Map item = _products[index];
+                            String label = [item["label"], '@', item["price"]].join("");
+                            return ProductItem(
+                              label: label,
+                              count: "0",
+                            );
+                          },
+                        )
+                    ),
+                    Container(
+                        alignment: Alignment.center,
+                        margin: EdgeInsets.only(top: 20),
+                        child: RaisedButton(
+                          child: Text("Close"),
+                          onPressed: () {
+                            Keys.navigatorKey.currentState.pop();
+                          },
+                        )
+                    )
+                  ],
+                ),
+              )
+          );
+        },
+        backgroundColor: Colors.transparent
+    );
   }
 }
 

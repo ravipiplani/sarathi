@@ -2,10 +2,10 @@ import 'dart:core';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:yathaarth/components/location_card.dart';
 import 'package:yathaarth/components/search.dart';
-import 'package:yathaarth/keys.dart';
+import 'package:yathaarth/constants/Constants.dart';
 import 'package:yathaarth/models/responses/home/home_response.dart';
-import 'package:yathaarth/router.dart';
 import 'package:yathaarth/services/home_service.dart';
 
 class HomeIndex extends StatefulWidget {
@@ -17,8 +17,8 @@ class HomeIndex extends StatefulWidget {
 
 class _HomeIndexState extends State<HomeIndex> {
   Map _stats = {
-    'customers': {'icon': Icons.group, 'label': 'Customers'},
     'beats': {'icon': Icons.map, 'label': 'Beats'},
+    'customers': {'icon': Icons.group, 'label': 'Customers'},
     'orders': {'icon': Icons.list, 'label': 'Orders'}
   };
 
@@ -31,6 +31,8 @@ class _HomeIndexState extends State<HomeIndex> {
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
+              LocationCard(),
+              SizedBox(height: Constants.kPadding32),
               Search(),
               Card(
                 child: ListTile(
@@ -53,15 +55,13 @@ class _HomeIndexState extends State<HomeIndex> {
                               padding: EdgeInsets.all(16.0),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-                                children: _stats.entries.map((e) => InkWell(
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[Icon(e.value['icon']), SizedBox(height: 5), Text('${_hr.stats[e.key]} ${e.value['label']}')],
-                                  ),
-                                  onTap: () {
-                                    Keys.navigatorKey.currentState.pushNamed(Router.customersRoute);
-                                  },
-                                )).toList(),
+                                children: _stats.entries
+                                    .map((e) => Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+                                          Icon(e.value['icon'], color: Theme.of(context).primaryColorLight),
+                                          SizedBox(height: 5),
+                                          Text('${_hr.stats[e.key]} ${e.value['label']}')
+                                        ]))
+                                    .toList(),
                               )));
                     }
                     return CircularProgressIndicator();

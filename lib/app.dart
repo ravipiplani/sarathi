@@ -33,11 +33,9 @@ class _AppRootState extends State<AppRoot> {
   ThemeData get _themeData => ThemeData(
     primaryColor: Color(primaryColor),
     accentColor: Color(accentColor),
-    textTheme: TextTheme(
-      headline3: TextStyle(fontFamily: 'Sofia', color: Color(primaryColor))
-    ),
     inputDecorationTheme: InputDecorationTheme(
-      filled: true
+      filled: true,
+      border: UnderlineInputBorder(borderSide: BorderSide(color: Colors.black12))
     ),
     buttonTheme: ButtonThemeData(
       buttonColor: Color(accentColor),
@@ -49,5 +47,8 @@ class _AppRootState extends State<AppRoot> {
         color: Color(accentColor)
       ),
     ),
+    iconTheme: IconThemeData(
+      color: Color(accentColor)
+    )
   );
 }

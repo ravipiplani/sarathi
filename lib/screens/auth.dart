@@ -3,7 +3,6 @@ import 'package:country_pickers/country_picker_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:yathaarth/components/heading.dart';
 import 'package:yathaarth/components/input_title.dart';
 import 'package:yathaarth/keys.dart';
 import 'package:yathaarth/router.dart';
@@ -35,112 +34,101 @@ class _AuthState extends State<Auth> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
-      resizeToAvoidBottomInset: false,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.chevron_right, size: 36, color: Colors.white),
-        onPressed: () {
-          if (_formKey.currentState.validate()) {
-            setState(() {
-              isLoading = true;
-            });
-            mobile = _controller.text;
-            _focusNode.unfocus();
-            sendOTP();
-          }
-        }
-      ),
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.all(40),
-              child: Heading(
-                text: "Yathaarth",
-                size: 48,
-              )
-            ),
-            Expanded(
-              child: Align(
-                alignment: Alignment.center,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    InputTitle(
-                      title: "Mobile Verification",
-                      desc: "Please enter your mobile number",
-                    ),
-                    Form(
-                      key: _formKey,
-                      child: Container(
-                        padding: EdgeInsets.all(32),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: <Widget>[
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: <Widget>[
-                                Padding(
-                                  padding: EdgeInsets.only(right: 10),
-                                  child: InkWell(
-                                    onTap: _openCountryPickerDialog,
-                                    child: Text(countryCode, style: Theme.of(context).textTheme.headline5.copyWith(fontWeight: FontWeight.w400, color: Theme.of(context).accentColor)),
+        key: _scaffoldKey,
+        resizeToAvoidBottomInset: false,
+        floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.chevron_right, size: 36, color: Colors.white),
+            onPressed: () {
+              if (_formKey.currentState.validate()) {
+                setState(() {
+                  isLoading = true;
+                });
+                mobile = _controller.text;
+                _focusNode.unfocus();
+                sendOTP();
+              }
+            }),
+        body: SafeArea(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                  padding: EdgeInsets.all(40),
+                  child: Text(
+                    'Yathaarth',
+                    style: Theme.of(context).textTheme.headline1,
+                  )),
+              Expanded(
+                  child: Align(
+                      alignment: Alignment.center,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          InputTitle(
+                            title: "Mobile Verification",
+                            desc: "Please enter your mobile number",
+                          ),
+                          Form(
+                            key: _formKey,
+                            child: Container(
+                              padding: EdgeInsets.all(32),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Padding(
+                                          padding: EdgeInsets.only(right: 10),
+                                          child: InkWell(
+                                            onTap: _openCountryPickerDialog,
+                                            child: Text(countryCode,
+                                                style: Theme.of(context)
+                                                    .textTheme
+                                                    .headline5
+                                                    .copyWith(fontWeight: FontWeight.w400, color: Theme.of(context).accentColor)),
+                                          )),
+                                      Expanded(
+                                        child: FormBuilderTextField(
+                                          attribute: 'mobile',
+                                          focusNode: _focusNode,
+                                          maxLength: 10,
+                                          controller: _controller,
+                                          keyboardType: TextInputType.phone,
+                                          decoration: InputDecoration(labelText: "Mobile No"),
+                                        ),
+                                      )
+                                    ],
                                   )
-                                ),
-                                Expanded(
-                                  child: FormBuilderTextField(
-                                    attribute: 'mobile',
-                                    focusNode: _focusNode,
-                                    maxLength: 10,
-                                    controller: _controller,
-                                    keyboardType: TextInputType.phone,
-                                    decoration: InputDecoration(
-                                      labelText: "Mobile No"
-                                    ),
-                                  ),
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                )
-              )
-            ),
-            Expanded(
-              child: Text("Terms & Conditions", style: Theme.of(context).textTheme.caption)
-            )
-          ],
-        ),
-      )
-    );
+                                ],
+                              ),
+                            ),
+                          )
+                        ],
+                      ))),
+              Expanded(child: Text("Terms & Conditions", style: Theme.of(context).textTheme.caption))
+            ],
+          ),
+        ));
   }
 
   void _openCountryPickerDialog() {
     showDialog(
-      context: context,
-      builder: (context) => CountryPickerDialog(
-        titlePadding: EdgeInsets.all(0.0),
-        searchInputDecoration: InputDecoration(
-          hintText: 'Search...'
-        ),
-        isSearchable: true,
-        title: Text('Country Code'),
-        itemBuilder: (Country country) {
-          return Container(
-            child: Text("+${country.phoneCode} (${country.isoCode})")
-          );
-        },
-        onValuePicked: (country) {
-          setState(() {
-            countryCode = "+${country.phoneCode}";
-          });
-        },
-      )
-    );
+        context: context,
+        builder: (context) => CountryPickerDialog(
+              titlePadding: EdgeInsets.all(0.0),
+              searchInputDecoration: InputDecoration(hintText: 'Search...'),
+              isSearchable: true,
+              title: Text('Country Code'),
+              itemBuilder: (Country country) {
+                return Container(child: Text("+${country.phoneCode} (${country.isoCode})"));
+              },
+              onValuePicked: (country) {
+                setState(() {
+                  countryCode = "+${country.phoneCode}";
+                });
+              },
+            ));
   }
 
   void sendOTP() {
@@ -166,8 +154,7 @@ class _AuthState extends State<Auth> {
     setState(() {
       isLoading = false;
     });
-    Keys.navigatorKey.currentState.pushNamed(Router.otpRoute,
-        arguments: OtpArguments(verificationId: verId, mobile: mobile));
+    Keys.navigatorKey.currentState.pushNamed(Router.otpRoute, arguments: OtpArguments(verificationId: verId, mobile: mobile));
     return;
   }
 }

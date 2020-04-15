@@ -18,26 +18,25 @@ class _CustomersState extends State<Customers> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(Constants.kPadding16),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: <Widget>[
-          Search(),
-          FutureBuilder<List<Establishment>>(
-            future: fetchEstablishments(),
-            builder: (context, snapshot) {
-              if (snapshot.hasError) print(snapshot.error);
+        padding: EdgeInsets.all(Constants.kPadding16),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: <Widget>[
+            Search(),
+            FutureBuilder<List<Establishment>>(
+              future: fetchEstablishments(),
+              builder: (context, snapshot) {
+                if (snapshot.hasError) print(snapshot.error);
 
-              return snapshot.hasData
-                  ? Expanded(
-                      child: _createList(snapshot.data),
-                    )
-                  : Padding(padding: EdgeInsets.symmetric(vertical: 20), child: CircularProgressIndicator());
-            },
-          )
-        ],
-      )
-    );
+                return snapshot.hasData
+                    ? Expanded(
+                        child: _createList(snapshot.data),
+                      )
+                    : Padding(padding: EdgeInsets.symmetric(vertical: 20), child: CircularProgressIndicator());
+              },
+            )
+          ],
+        ));
   }
 
   Widget _createList(List<Establishment> establishments) {
@@ -52,7 +51,7 @@ class _CustomersState extends State<Customers> {
             Keys.navigatorKey.currentState.pushNamed(Router.showCustomerRoute, arguments: CustomerArguments(establishmentId: establishments[index].id));
           },
           child: ListTile(
-              leading: Icon(Icons.input), title: Text(establishments[index].name), subtitle: Text(establishments[index].mobile), trailing: Text('Rs 1')),
+              leading: CircleAvatar(child: Text((index + 1).toString()),), title: Text(establishments[index].name), subtitle: Text(establishments[index].mobile), trailing: Text('Rs 1')),
         );
       },
     );

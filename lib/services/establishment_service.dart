@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:yathaarth/constants/Products.dart';
 import 'package:yathaarth/dev/establishment_json.dart';
 import 'package:yathaarth/dev/establishments_json.dart';
 import 'package:yathaarth/models/establishment.dart';
@@ -10,6 +11,7 @@ class EstablishmentService extends ApiClient {
 
   Future<List<Establishment>> index() async {
     List<Map> responseData;
+
     if (isEnvLocal()) {
       responseData = jsonDecode(EstablishmentsJson.getJson()).cast<Map<String, dynamic>>();
     }

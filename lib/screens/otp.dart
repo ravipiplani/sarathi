@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:yathaarth/components/heading.dart';
 import 'package:yathaarth/components/input_title.dart';
 import 'package:yathaarth/keys.dart';
 import 'package:yathaarth/models/responses/get_token_response.dart';
@@ -45,69 +44,58 @@ class _OtpState extends State<Otp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: _scaffoldKey,
-      resizeToAvoidBottomInset: false,
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.chevron_right, size: 36, color: Colors.white),
-          onPressed: () {
-            if (_formKey.currentState.validate()) {
-              setState(() {
-                isLoading = true;
-              });
-              verifyOTP(widget.verificationId, _textFieldController.text);
-            }
-          }
-      ),
-      body: SafeArea(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-                padding: EdgeInsets.all(40),
-                child: Heading(
-                  text: "Yathaarth",
-                  size: 48,
-                )
-            ),
-            Expanded(
-                child: Align(
-                    alignment: Alignment.center,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        InputTitle(
-                          title: "Enter OTP",
-                          desc: "One Time Password (OTP) has been sent to your mobile number. Please enter the same here to login.",
-                        ),
-                        Form(
-                          key: _formKey,
-                          child: Container(
-                            padding: EdgeInsets.all(32),
-                            child: FormBuilderTextField(
-                              attribute: 'otp',
-                              focusNode: _focusNode,
-                              maxLength: 6,
-                              controller: _textFieldController,
-                              textAlign: TextAlign.center,
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                hintText: 'OOOOOO',
-                                hintStyle: TextStyle(letterSpacing: 20),
-                              ),
+        key: _scaffoldKey,
+        resizeToAvoidBottomInset: false,
+        floatingActionButton: FloatingActionButton(
+            child: Icon(Icons.chevron_right, size: 36, color: Colors.white),
+            onPressed: () {
+              if (_formKey.currentState.validate()) {
+                setState(() {
+                  isLoading = true;
+                });
+                verifyOTP(widget.verificationId, _textFieldController.text);
+              }
+            }),
+        body: SafeArea(
+            child: Column(mainAxisAlignment: MainAxisAlignment.center, children: <Widget>[
+          Container(
+              padding: EdgeInsets.all(40),
+              child: Text(
+                'Yathaarth',
+                style: Theme.of(context).textTheme.headline1,
+              )),
+          Expanded(
+              child: Align(
+                  alignment: Alignment.center,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      InputTitle(
+                        title: "Enter OTP",
+                        desc: "One Time Password (OTP) has been sent to your mobile number. Please enter the same here to login.",
+                      ),
+                      Form(
+                        key: _formKey,
+                        child: Container(
+                          padding: EdgeInsets.all(32),
+                          child: FormBuilderTextField(
+                            attribute: 'otp',
+                            focusNode: _focusNode,
+                            maxLength: 6,
+                            controller: _textFieldController,
+                            textAlign: TextAlign.center,
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                              hintText: 'OOOOOO',
+                              hintStyle: TextStyle(letterSpacing: 20),
                             ),
                           ),
-                        )
-                      ],
-                    )
-                )
-            ),
-            Expanded(
-                child: Text("Didn't receive the OTP?", style: Theme.of(context).textTheme.caption)
-            )
-          ]
-        )
-      )
-    );
+                        ),
+                      )
+                    ],
+                  ))),
+          Expanded(child: Text("Didn't receive the OTP?", style: Theme.of(context).textTheme.caption))
+        ])));
   }
 
   Future<void> verifyOTP(String verificationId, String otp) async {

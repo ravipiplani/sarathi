@@ -30,10 +30,8 @@ class _CounterState extends State<Counter> {
           SizedBox(
             width: 30,
             height: 30,
-            child: FloatingActionButton(
-              elevation: 1,
-              child: Icon(Icons.remove, size: 14, color: Theme.of(context).primaryColor),
-              backgroundColor: Colors.white,
+            child: IconButton(
+              icon: Icon(Icons.remove, size: 14, color: Theme.of(context).primaryColor),
               onPressed: () {
                 if (_currentCount > 0) {
                   _currentCount--;
@@ -47,19 +45,22 @@ class _CounterState extends State<Counter> {
             child: SizedBox(
               width: 60,
               child: FormBuilderTextField(
+                initialValue: '',
                 controller: _textFieldController,
                 textAlign: TextAlign.center,
                 attribute: 'counter',
+                onChanged: (value) {
+                  _currentCount = int.parse(value);
+                },
               )
             )
           ),
           SizedBox(
             width: 30,
             height: 30,
-            child: FloatingActionButton(
-              elevation: 1,
-              child: Icon(Icons.add, size: 14, color: Theme.of(context).primaryColor),
-              backgroundColor: Colors.white,
+            child: IconButton(
+              splashColor: Colors.transparent,
+              icon: Icon(Icons.add, size: 14, color: Theme.of(context).primaryColor),
               onPressed: () {
                 _currentCount++;
                 _textFieldController.value = TextEditingValue(text: _currentCount.toString());
