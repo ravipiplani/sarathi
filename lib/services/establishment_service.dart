@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:yathaarth/constants/Products.dart';
 import 'package:yathaarth/dev/establishment_json.dart';
 import 'package:yathaarth/dev/establishments_json.dart';
 import 'package:yathaarth/models/establishment.dart';
