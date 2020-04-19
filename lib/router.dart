@@ -1,14 +1,14 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:yathaarth/screens/auth.dart';
-import 'package:yathaarth/screens/beats/create.dart';
-import 'package:yathaarth/screens/customers/create.dart';
-import 'package:yathaarth/screens/customers/show.dart';
-import 'package:yathaarth/screens/home.dart';
-import 'package:yathaarth/screens/home/customers.dart';
-import 'package:yathaarth/screens/landing.dart';
-import 'package:yathaarth/screens/orders/create.dart';
-import 'package:yathaarth/screens/otp.dart';
+import 'package:yathaarth/pages/landing.dart';
+import 'package:yathaarth/pages/auth.dart';
+import 'package:yathaarth/pages/beats/create.dart';
+import 'package:yathaarth/pages/customers/create.dart';
+import 'package:yathaarth/pages/customers/show.dart';
+import 'package:yathaarth/pages/home.dart';
+import 'package:yathaarth/pages/home/customers.dart';
+import 'package:yathaarth/pages/orders/create.dart';
+import 'package:yathaarth/pages/otp.dart';
 
 class Router {
   static const String landingRoute = "/";

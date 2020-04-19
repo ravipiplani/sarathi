@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:yathaarth/dev/home_json.dart';
+import 'package:yathaarth/models/jsons/home_json.dart';
 import 'package:yathaarth/models/responses/api_response.dart';
 import 'package:yathaarth/models/responses/home/home_response.dart';
 import 'package:yathaarth/services/api_client.dart';

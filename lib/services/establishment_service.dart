@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:yathaarth/dev/establishment_json.dart';
-import 'package:yathaarth/dev/establishments_json.dart';
+import 'package:yathaarth/models/jsons/establishment_json.dart';
 import 'package:yathaarth/models/establishment.dart';
+import 'package:yathaarth/models/jsons/establishments_json.dart';
 import 'package:yathaarth/models/responses/api_response.dart';
 import 'package:yathaarth/services/api_client.dart';
 

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
-import 'package:yathaarth/dev/establishment_json.dart';
+import 'package:yathaarth/models/jsons/establishment_json.dart';
 import 'package:yathaarth/models/establishment.dart';
 
 void main() {
