@@ -2,7 +2,6 @@ import 'dart:core';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:location/location.dart';
 import 'package:yathaarth/models/responses/home/home_response.dart';
 import 'package:yathaarth/services/home_service.dart';
 import 'package:yathaarth/theme.dart';
