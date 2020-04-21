@@ -3,12 +3,12 @@ import 'dart:io';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
+import 'package:yathaarth/models/environment.dart';
 import 'package:yathaarth/models/responses/api_response.dart';
-import 'package:yathaarth/utils/environment_utils.dart';
 
 class ApiClient {
-  final String _baseUrl = EnvironmentUtil.getValue('API_EP');
-  final String _appEnv = EnvironmentUtil.getValue('APP_ENV');
+  final String _baseUrl = Environment.getValue('API_EP');
+  final String _appEnv = Environment.getValue('APP_ENV');
   Map<String, String> headers = {'Accept': 'application/json'};
 
   Future<ApiResponse> get(String url, {bool isProtected = false}) async {

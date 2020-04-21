@@ -5,10 +5,6 @@ part 'address.g.dart';
 @JsonSerializable()
 class Address {
   final int id;
-  @JsonKey(name: 'addressable_type')
-  final String addressableType;
-  @JsonKey(name: 'addressable_id')
-  final int addressableId;
   @JsonKey(name: 'address_line_1')
   final String addressLine1;
   @JsonKey(name: 'address_line_2')
@@ -29,8 +25,6 @@ class Address {
 
   Address(
       {this.id,
-      this.addressableType,
-      this.addressableId,
       this.addressLine1,
       this.addressLine2,
       this.landmark,
@@ -49,14 +43,18 @@ class Address {
 
   @override
   String toString() {
-    return 'Address{id: $id, addressableType: $addressableType, addressableId: $addressableId, addressLine1: $addressLine1, addressLine2: $addressLine2, landmark: $landmark, city: $city, pincode: $pincode, lat: $lat, long: $long, state: $state, stateId: $stateId, district: $district, districtId: $districtId}';
+    return 'Address{id: $id, addressLine1: $addressLine1, addressLine2: $addressLine2, landmark: $landmark, city: $city, pincode: $pincode, lat: $lat, long: $long, state: $state, stateId: $stateId, district: $district, districtId: $districtId}';
   }
 
-  static String _toState(Map<String, dynamic> state) {
-    return state != null ? state['name'] : '';
+  String get addressLine {
+    return '$addressLine1 ${addressLine2 ?? '$addressLine2'} ${landmark ?? '$landmark'}, $city ($district), India - $pincode';
   }
 
-  static String _toDistrict(Map<String, dynamic> district) {
-    return district != null ? district['name'] : '';
+  static String _toState(dynamic state) {
+    return state != null && state.runtimeType.toString() == 'String' ? state : state['name'] ?? '';
+  }
+
+  static String _toDistrict(dynamic district) {
+    return district != null && district.runtimeType.toString() == 'String' ? district : district['name'] ?? '';
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:searchable_dropdown/searchable_dropdown.dart';
 import 'package:yathaarth/models/product.dart';
-import 'package:yathaarth/models/products.dart';
+import 'package:yathaarth/data/products.dart';
 import 'package:yathaarth/theme.dart';
 import 'package:yathaarth/widgets/product_counter.dart';
 
