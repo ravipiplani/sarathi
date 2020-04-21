@@ -124,7 +124,6 @@ class _LocationCardState extends State<LocationCard> {
           FocusNode _landmarkFN = FocusNode();
           FocusNode _cityFN = FocusNode();
           FocusNode _pincodeFN = FocusNode();
-          GlobalKey _key = GlobalKey();
           return AlertDialog(
             title: Text('Edit Address'),
             content: StatefulBuilder(
