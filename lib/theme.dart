@@ -10,6 +10,9 @@ class YathaarthTheme {
   static const kPadding16 = 16.0;
   static const kPadding32 = 32.0;
 
+  Color primaryColor = Color(0xff004c8c);
+  Color accentColor = Color(0xffffca29);
+
   static ThemeData blue = ThemeData(
       primaryColor: Colors.lightBlue[800],
       accentColor: Colors.amber[400],
