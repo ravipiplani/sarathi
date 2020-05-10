@@ -1,0 +1,52 @@
+variables:
+  - group: sarathi_android_signing
+  - name: projectDirectory
+    value: $(System.DefaultWorkingDirectory)
+  - name: FCI_BUILD_DIR
+    value: .
+
+trigger:
+- alpha
+
+pr:
+- alpha
+
+resources:
+  containers:
+  - container: flutter
+    image: toffeeinsurance/flutter:latest
+    options: --user developer
+
+jobs:
+  - job: BuildAndDistribute
+    pool:
+      vmImage: 'ubuntu-18.04'
+      
+    container: flutter
+
+    steps:
+      - task: DownloadSecureFile@1
+        name: androidKey
+        inputs:
+          secureFile: 'sarathi.jks'
+        displayName: Download android key
+      - script: |
+          cp $(androidKey.secureFilePath) $(projectDirectory)/android/app/sarathi.jks
+          printenv
+        displayName: Copy android keystore
+      - script: |
+          flutter packages get
+        displayName: Get Packages
+      - script: |
+          flutter build appbundle
+        displayName: Build android appbundle
+        env:
+          SARATHI_A_KEY_FILE: $(projectDirectory)/android/app/sarathi.jks
+      - task: CopyFiles@2
+        inputs:
+          contents: |
+            **/release/**/*.aab
+          targetFolder: '$(build.artifactStagingDirectory)'
+        displayName: Copy build artifacts
+      - task: PublishBuildArtifacts@1
+        displayName: publish build artifacts
