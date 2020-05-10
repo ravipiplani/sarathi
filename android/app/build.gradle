@@ -51,7 +51,7 @@ android {
         release {
             keyAlias System.getenv('SARATHI_A_KEY_ALIAS')
             keyPassword System.getenv('SARATHI_A_KEY_PASSWORD')
-            storeFile System.getenv('SARATHI_A_KEYSTORE_FILE') ? file(System.getenv('SARATHI_A_KEYSTORE_FILE')) : null
+            storeFile System.getenv('SARATHI_A_KEY_FILE') ? file(System.getenv('SARATHI_A_KEY_FILE')) : null
             storePassword System.getenv('SARATHI_A_KEYSTORE_PASSWORD')
         }
     }
