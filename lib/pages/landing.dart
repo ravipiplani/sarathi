@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:sarathi/keys.dart';
 import 'package:sarathi/router.dart';
 
@@ -62,7 +63,7 @@ class Landing extends StatelessWidget {
                     ),
                     Padding(
                         padding: EdgeInsets.only(top: 60),
-                        child: Text("Sarathi", style: Theme.of(context).textTheme.headline2,)
+                        child: Text("Sarathi", style: GoogleFonts.adventPro().copyWith(fontSize: Theme.of(context).textTheme.headline2.fontSize))
                     )
                   ],
                 ),
