@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:yathaarth/widgets/input_title.dart';
-import 'package:yathaarth/keys.dart';
-import 'package:yathaarth/models/responses/get_token_response.dart';
-import 'package:yathaarth/router.dart';
-import 'package:yathaarth/services/user_service.dart';
+import 'package:sarathi/widgets/input_title.dart';
+import 'package:sarathi/keys.dart';
+import 'package:sarathi/models/responses/get_token_response.dart';
+import 'package:sarathi/router.dart';
+import 'package:sarathi/services/user_service.dart';
 
 class OtpArguments {
   final String verificationId;
@@ -61,7 +61,7 @@ class _OtpState extends State<Otp> {
           Container(
               padding: EdgeInsets.all(40),
               child: Text(
-                'Yathaarth',
+                'Sarathi',
                 style: Theme.of(context).textTheme.headline1,
               )),
           Expanded(

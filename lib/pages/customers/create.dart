@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:location/location.dart';
-import 'package:yathaarth/models/address.dart';
-import 'package:yathaarth/theme.dart';
-import 'package:yathaarth/widgets/location_card.dart';
+import 'package:sarathi/models/address.dart';
+import 'package:sarathi/theme.dart';
+import 'package:sarathi/widgets/location_card.dart';
 
 class NewCustomer extends StatefulWidget {
   NewCustomer({Key key}) : super(key: key);
@@ -40,7 +40,7 @@ class _NewCustomerState extends State<NewCustomer> {
             child: FormBuilder(
           key: _fbKey,
           child: Container(
-            padding: EdgeInsets.all(YathaarthTheme.kPadding16),
+            padding: EdgeInsets.all(SarathiTheme.kPadding16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -49,7 +49,7 @@ class _NewCustomerState extends State<NewCustomer> {
                 if (_addressAdded)
                   ...
                   [
-                    SizedBox(height: YathaarthTheme.kPadding16,),
+                    SizedBox(height: SarathiTheme.kPadding16,),
                     FormBuilderTextField(
                       attribute: 'outletName',
                       initialValue: '',
@@ -57,7 +57,7 @@ class _NewCustomerState extends State<NewCustomer> {
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(counter: Offstage(), labelText: "Outlet Name"),
                     ),
-                    SizedBox(height: YathaarthTheme.kPadding16),
+                    SizedBox(height: SarathiTheme.kPadding16),
                     FormBuilderTextField(
                       attribute: 'mobile',
                       initialValue: '',
@@ -65,7 +65,7 @@ class _NewCustomerState extends State<NewCustomer> {
                       keyboardType: TextInputType.phone,
                       decoration: InputDecoration(counter: Offstage(), labelText: "Mobile Number", hintText: "Enter the 10 digit mobile number"),
                     ),
-                    SizedBox(height: YathaarthTheme.kPadding16),
+                    SizedBox(height: SarathiTheme.kPadding16),
                     FormBuilderDropdown(
                       attribute: 'beatId',
                       hint: Text('Select Beat'),
@@ -75,7 +75,7 @@ class _NewCustomerState extends State<NewCustomer> {
                         return DropdownMenuItem(value: v, child: Text(v.toString()));
                       }).toList(),
                     ),
-                    SizedBox(height: YathaarthTheme.kPadding16),
+                    SizedBox(height: SarathiTheme.kPadding16),
                     FormBuilderDropdown(
                       attribute: 'distributorId',
                       hint: Text('Select Distributor'),
@@ -85,7 +85,7 @@ class _NewCustomerState extends State<NewCustomer> {
                         return DropdownMenuItem(value: v, child: Text(v.toString()));
                       }).toList(),
                     ),
-                    SizedBox(height: YathaarthTheme.kPadding16),
+                    SizedBox(height: SarathiTheme.kPadding16),
                     FormBuilderDropdown(
                       attribute: 'stockistId',
                       hint: Text('Select Stockist'),

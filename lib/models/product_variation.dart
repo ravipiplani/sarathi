@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:yathaarth/models/product.dart';
+import 'package:sarathi/models/product.dart';
 
 part 'product_variation.g.dart';
 

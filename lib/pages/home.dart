@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:yathaarth/keys.dart';
-import 'package:yathaarth/router.dart';
-import 'package:yathaarth/pages/home/beats.dart';
-import 'package:yathaarth/pages/home/customers.dart';
-import 'package:yathaarth/pages/home/index.dart';
-import 'package:yathaarth/pages/home/orders.dart';
+import 'package:sarathi/keys.dart';
+import 'package:sarathi/router.dart';
+import 'package:sarathi/pages/home/beats.dart';
+import 'package:sarathi/pages/home/customers.dart';
+import 'package:sarathi/pages/home/index.dart';
+import 'package:sarathi/pages/home/orders.dart';
 
 class Home extends StatefulWidget {
   Home({Key key}) : super(key: key);
@@ -31,7 +31,7 @@ class _HomeState extends State<Home> {
           actions: <Widget>[
             IconButton(icon: Icon(Icons.notifications), onPressed: () {})
           ],
-          title: Text('Yathaarth'),
+          title: Text('Sarathi'),
         ),
         drawer: Drawer(
           child: ListView(

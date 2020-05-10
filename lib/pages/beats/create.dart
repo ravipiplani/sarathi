@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:yathaarth/theme.dart';
+import 'package:sarathi/theme.dart';
 
 class NewBeat extends StatelessWidget {
   NewBeat({Key key}) : super(key: key);
@@ -19,13 +19,13 @@ class NewBeat extends StatelessWidget {
             child: FormBuilder(
           key: _fbKey,
           child: Container(
-            padding: EdgeInsets.all(YathaarthTheme.kPadding16),
+            padding: EdgeInsets.all(SarathiTheme.kPadding16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Padding(
-                  padding: EdgeInsets.only(bottom: YathaarthTheme.kPadding16),
+                  padding: EdgeInsets.only(bottom: SarathiTheme.kPadding16),
                   child: Icon(Icons.map),
                 ),
                 FormBuilderTextField(

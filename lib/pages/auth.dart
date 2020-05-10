@@ -3,9 +3,9 @@ import 'package:country_pickers/country_picker_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:yathaarth/widgets/input_title.dart';
-import 'package:yathaarth/keys.dart';
-import 'package:yathaarth/router.dart';
+import 'package:sarathi/widgets/input_title.dart';
+import 'package:sarathi/keys.dart';
+import 'package:sarathi/router.dart';
 import 'otp.dart';
 
 class Auth extends StatefulWidget {
@@ -55,7 +55,7 @@ class _AuthState extends State<Auth> {
               Container(
                   padding: EdgeInsets.all(40),
                   child: Text(
-                    'Yathaarth',
+                    'Sarathi',
                     style: Theme.of(context).textTheme.headline1,
                   )),
               Expanded(

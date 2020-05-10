@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:yathaarth/keys.dart';
-import 'package:yathaarth/router.dart';
+import 'package:sarathi/keys.dart';
+import 'package:sarathi/router.dart';
 
 class Landing extends StatelessWidget {
   final bool isAuthenticated;
@@ -62,7 +62,7 @@ class Landing extends StatelessWidget {
                     ),
                     Padding(
                         padding: EdgeInsets.only(top: 60),
-                        child: Text("Yathaarth", style: Theme.of(context).textTheme.headline2,)
+                        child: Text("Sarathi", style: Theme.of(context).textTheme.headline2,)
                     )
                   ],
                 ),

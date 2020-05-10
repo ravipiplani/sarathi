@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:yathaarth/widgets/counter.dart';
+import 'package:sarathi/widgets/counter.dart';
 
 class ProductCounter extends StatelessWidget {
   final String label;

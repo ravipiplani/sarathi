@@ -1,6 +1,6 @@
-import 'package:yathaarth/models/responses/api_response.dart';
-import 'package:yathaarth/models/responses/get_token_response.dart';
-import 'package:yathaarth/services/api_client.dart';
+import 'package:sarathi/models/responses/api_response.dart';
+import 'package:sarathi/models/responses/get_token_response.dart';
+import 'package:sarathi/services/api_client.dart';
 
 class UserService extends ApiClient {
 

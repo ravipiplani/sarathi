@@ -1,4 +1,4 @@
-package com.yathaarth
+package com.yathaarth.sarathi
 
 import androidx.annotation.NonNull
 import io.flutter.embedding.android.FlutterActivity

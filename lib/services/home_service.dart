@@ -1,9 +1,9 @@
 import 'dart:convert';
 
-import 'package:yathaarth/models/jsons/home_json.dart';
-import 'package:yathaarth/models/responses/api_response.dart';
-import 'package:yathaarth/models/responses/home/home_response.dart';
-import 'package:yathaarth/services/api_client.dart';
+import 'package:sarathi/models/jsons/home_json.dart';
+import 'package:sarathi/models/responses/api_response.dart';
+import 'package:sarathi/models/responses/home/home_response.dart';
+import 'package:sarathi/services/api_client.dart';
 
 class HomeService extends ApiClient {
 

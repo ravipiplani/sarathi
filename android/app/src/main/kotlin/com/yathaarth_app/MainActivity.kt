@@ -1,4 +1,4 @@
-package com.yathaarth_app
+package com.yathaarth.sarathi_app
 
 import io.flutter.embedding.android.FlutterActivity
 

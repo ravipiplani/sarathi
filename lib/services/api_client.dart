@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:http/http.dart' as http;
-import 'package:yathaarth/models/environment.dart';
-import 'package:yathaarth/models/responses/api_response.dart';
+import 'package:sarathi/models/environment.dart';
+import 'package:sarathi/models/responses/api_response.dart';
 
 class ApiClient {
   final String _baseUrl = Environment.getValue('API_EP');

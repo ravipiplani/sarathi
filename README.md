@@ -1,4 +1,4 @@
-# yathaarth
+# sarathi
 
 A new Flutter project.
 

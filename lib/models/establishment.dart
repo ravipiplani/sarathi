@@ -1,8 +1,8 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:yathaarth/models/address.dart';
-import 'package:yathaarth/models/establishment_type.dart';
-import 'package:yathaarth/models/status.dart';
-import 'package:yathaarth/models/user.dart';
+import 'package:sarathi/models/address.dart';
+import 'package:sarathi/models/establishment_type.dart';
+import 'package:sarathi/models/status.dart';
+import 'package:sarathi/models/user.dart';
 
 part 'establishment.g.dart';
 

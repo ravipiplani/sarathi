@@ -3,8 +3,8 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class YathaarthTheme {
-  YathaarthTheme._();
+class SarathiTheme {
+  SarathiTheme._();
 
   static const kPadding8 = 8.0;
   static const kPadding16 = 16.0;

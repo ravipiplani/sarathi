@@ -1,5 +1,3 @@
-include: package:pedantic/analysis_options.yaml
-
 linter:
   rules:
     ignore: always_declare_return_types

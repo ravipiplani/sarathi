@@ -1,5 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
-import 'package:yathaarth/models/user.dart';
+import 'package:sarathi/models/user.dart';
 
 part 'home_response.g.dart';
 

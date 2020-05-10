@@ -1,5 +1,5 @@
-import 'package:yathaarth/models/product.dart';
-import 'package:yathaarth/models/product_variation.dart';
+import 'package:sarathi/models/product.dart';
+import 'package:sarathi/models/product_variation.dart';
 
 class Products {
   static Products _instance = Products.internal();

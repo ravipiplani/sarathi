@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:yathaarth/keys.dart';
-import 'package:yathaarth/models/establishment.dart';
-import 'package:yathaarth/pages/customers/show.dart';
-import 'package:yathaarth/router.dart';
-import 'package:yathaarth/services/establishment_service.dart';
-import 'package:yathaarth/theme.dart';
-import 'package:yathaarth/widgets/search.dart';
+import 'package:sarathi/keys.dart';
+import 'package:sarathi/models/establishment.dart';
+import 'package:sarathi/pages/customers/show.dart';
+import 'package:sarathi/router.dart';
+import 'package:sarathi/services/establishment_service.dart';
+import 'package:sarathi/theme.dart';
+import 'package:sarathi/widgets/search.dart';
 
 class Customers extends StatefulWidget {
   Customers({Key key}) : super(key: key);
@@ -18,7 +18,7 @@ class _CustomersState extends State<Customers> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: EdgeInsets.all(YathaarthTheme.kPadding16),
+        padding: EdgeInsets.all(SarathiTheme.kPadding16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: <Widget>[

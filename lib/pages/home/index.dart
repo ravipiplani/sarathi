@@ -2,11 +2,11 @@ import 'dart:core';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:yathaarth/models/responses/home/home_response.dart';
-import 'package:yathaarth/services/home_service.dart';
-import 'package:yathaarth/theme.dart';
-import 'package:yathaarth/widgets/location_card.dart';
-import 'package:yathaarth/widgets/search.dart';
+import 'package:sarathi/models/responses/home/home_response.dart';
+import 'package:sarathi/services/home_service.dart';
+import 'package:sarathi/theme.dart';
+import 'package:sarathi/widgets/location_card.dart';
+import 'package:sarathi/widgets/search.dart';
 
 class HomeIndex extends StatefulWidget {
   HomeIndex({Key key}) : super(key: key);
@@ -26,13 +26,13 @@ class _HomeIndexState extends State<HomeIndex> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-          padding: EdgeInsets.all(YathaarthTheme.kPadding16),
+          padding: EdgeInsets.all(SarathiTheme.kPadding16),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             mainAxisSize: MainAxisSize.max,
             children: <Widget>[
               LocationCard(),
-              SizedBox(height: YathaarthTheme.kPadding16),
+              SizedBox(height: SarathiTheme.kPadding16),
               Search(),
               Card(
                 child: ListTile(

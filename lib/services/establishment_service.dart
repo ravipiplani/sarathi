@@ -1,10 +1,10 @@
 import 'dart:convert';
 
-import 'package:yathaarth/models/jsons/establishment_json.dart';
-import 'package:yathaarth/models/establishment.dart';
-import 'package:yathaarth/models/jsons/establishments_json.dart';
-import 'package:yathaarth/models/responses/api_response.dart';
-import 'package:yathaarth/services/api_client.dart';
+import 'package:sarathi/models/jsons/establishment_json.dart';
+import 'package:sarathi/models/establishment.dart';
+import 'package:sarathi/models/jsons/establishments_json.dart';
+import 'package:sarathi/models/responses/api_response.dart';
+import 'package:sarathi/services/api_client.dart';
 
 class EstablishmentService extends ApiClient {
 

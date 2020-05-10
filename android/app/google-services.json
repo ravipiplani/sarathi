@@ -1,42 +1,42 @@
 {
   "project_info": {
-    "project_number": "817234824618",
-    "firebase_url": "https://yathaarth-616.firebaseio.com",
-    "project_id": "yathaarth-616",
-    "storage_bucket": "yathaarth-616.appspot.com"
+    "project_number": "619816774335",
+    "firebase_url": "https://yathaarth-101.firebaseio.com",
+    "project_id": "yathaarth-101",
+    "storage_bucket": "yathaarth-101.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:817234824618:android:1e55ab987759752329efd3",
+        "mobilesdk_app_id": "1:619816774335:android:9c8c53f5a0b13e1a4c340a",
         "android_client_info": {
-          "package_name": "com.yathaarth"
+          "package_name": "com.yathaarth.sarathi"
         }
       },
       "oauth_client": [
         {
-          "client_id": "817234824618-0ime280ch83a0jpdtjj0f3bbl8bb8vp2.apps.googleusercontent.com",
+          "client_id": "619816774335-j3hvcjd88hijqurcf1bjl7jekik219sf.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.yathaarth",
-            "certificate_hash": "7be878137ea0a7ebd51b9eeefc536f4a80da7ad7"
+            "package_name": "com.yathaarth.sarathi",
+            "certificate_hash": "0eddde44e479c8c03cae1b33d48fa90a012753fd"
           }
         },
         {
-          "client_id": "817234824618-0jlfj9ilcv5en23d6vh3mhcn92ted2vu.apps.googleusercontent.com",
+          "client_id": "619816774335-9p6snd8afugqokpm5j49n1qacvu5t1fr.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDCvdI4RJA5nlQm35TZF9oUzXvGl5ckDmk"
+          "current_key": "AIzaSyBCYfEY4Mm_dD3BuDXiJGROJpXucO4hptE"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "817234824618-0jlfj9ilcv5en23d6vh3mhcn92ted2vu.apps.googleusercontent.com",
+              "client_id": "619816774335-9p6snd8afugqokpm5j49n1qacvu5t1fr.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

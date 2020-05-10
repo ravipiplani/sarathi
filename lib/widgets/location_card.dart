@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:geocoder/geocoder.dart';
 import 'package:location/location.dart';
-import 'package:yathaarth/data/states.dart';
-import 'package:yathaarth/keys.dart';
-import 'package:yathaarth/data/strings.dart';
-import 'package:yathaarth/models/address.dart' as YAddress;
-import 'package:yathaarth/theme.dart';
+import 'package:sarathi/data/states.dart';
+import 'package:sarathi/keys.dart';
+import 'package:sarathi/data/strings.dart';
+import 'package:sarathi/models/address.dart' as YAddress;
+import 'package:sarathi/theme.dart';
 
 class LocationCard extends StatefulWidget {
   LocationCard({Key key, this.callback, this.editable = false, this.currentAddress}) : super(key: key);
@@ -63,7 +63,7 @@ class _LocationCardState extends State<LocationCard> {
   Widget build(BuildContext context) {
     return Card(
         child: ListTile(
-            contentPadding: EdgeInsets.all(YathaarthTheme.kPadding8),
+            contentPadding: EdgeInsets.all(SarathiTheme.kPadding8),
             leading: widget.editable
                 ? IconButton(
                     icon: Icon(Icons.edit),
@@ -140,13 +140,13 @@ class _LocationCardState extends State<LocationCard> {
                               readOnly: true,
                               initialValue: _locationData != null ? _locationData.latitude.toString() : '',
                               decoration: InputDecoration(labelText: "Lat", isDense: true)),
-                          SizedBox(height: YathaarthTheme.kPadding8),
+                          SizedBox(height: SarathiTheme.kPadding8),
                           FormBuilderTextField(
                               attribute: 'long',
                               readOnly: true,
                               initialValue: _locationData != null ? _locationData.longitude.toString() : '',
                               decoration: InputDecoration(labelText: "Long", isDense: true)),
-                          SizedBox(height: YathaarthTheme.kPadding8),
+                          SizedBox(height: SarathiTheme.kPadding8),
                           FormBuilderTextField(
                               attribute: 'address_line_1',
                               initialValue:
@@ -159,7 +159,7 @@ class _LocationCardState extends State<LocationCard> {
                                 FocusScope.of(context).requestFocus(_addressLine2FN);
                               },
                               decoration: InputDecoration(labelText: "Address Line 1", isDense: true)),
-                          SizedBox(height: YathaarthTheme.kPadding8),
+                          SizedBox(height: SarathiTheme.kPadding8),
                           FormBuilderTextField(
                               attribute: 'address_line_2',
                               initialValue:
@@ -171,7 +171,7 @@ class _LocationCardState extends State<LocationCard> {
                                 FocusScope.of(context).requestFocus(_landmarkFN);
                               },
                               decoration: InputDecoration(labelText: "Address Line 2", isDense: true)),
-                          SizedBox(height: YathaarthTheme.kPadding8),
+                          SizedBox(height: SarathiTheme.kPadding8),
                           FormBuilderTextField(
                               attribute: 'landmark',
                               initialValue: widget.currentAddress != null ? widget.currentAddress.landmark : '',
@@ -182,7 +182,7 @@ class _LocationCardState extends State<LocationCard> {
                                 FocusScope.of(context).requestFocus(_cityFN);
                               },
                               decoration: InputDecoration(labelText: "Landmark", isDense: true)),
-                          SizedBox(height: YathaarthTheme.kPadding8),
+                          SizedBox(height: SarathiTheme.kPadding8),
                           FormBuilderTextField(
                               attribute: 'city',
                               validators: [FormBuilderValidators.required()],
@@ -191,7 +191,7 @@ class _LocationCardState extends State<LocationCard> {
                               keyboardType: TextInputType.text,
                               focusNode: _cityFN,
                               decoration: InputDecoration(labelText: "City", isDense: true)),
-                          SizedBox(height: YathaarthTheme.kPadding8),
+                          SizedBox(height: SarathiTheme.kPadding8),
                           FormBuilderDropdown(
                             attribute: 'state',
                             validators: [FormBuilderValidators.required()],
@@ -208,7 +208,7 @@ class _LocationCardState extends State<LocationCard> {
                               setState(() => _districts = States.all[value.toString().toUpperCase()]);
                             },
                           ),
-                          SizedBox(height: YathaarthTheme.kPadding8),
+                          SizedBox(height: SarathiTheme.kPadding8),
                           FormBuilderDropdown(
                               attribute: 'district',
                               validators: [FormBuilderValidators.required()],
@@ -225,7 +225,7 @@ class _LocationCardState extends State<LocationCard> {
                                   : _address != null && _districts != null && _districts.contains(_address.subAdminArea.toLowerCase())
                                       ? _address.subAdminArea.toLowerCase()
                                       : null),
-                          SizedBox(height: YathaarthTheme.kPadding8),
+                          SizedBox(height: SarathiTheme.kPadding8),
                           FormBuilderTextField(
                               attribute: 'pincode',
                               validators: [FormBuilderValidators.required(), FormBuilderValidators.maxLength(6), FormBuilderValidators.numeric()],

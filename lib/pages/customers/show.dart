@@ -1,12 +1,12 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_speed_dial/flutter_speed_dial.dart';
-import 'package:yathaarth/keys.dart';
-import 'package:yathaarth/models/establishment.dart';
-import 'package:yathaarth/services/establishment_service.dart';
-import 'package:yathaarth/theme.dart';
-import 'package:yathaarth/widgets/product_counter.dart';
-import 'package:yathaarth/widgets/product_item.dart';
+import 'package:sarathi/keys.dart';
+import 'package:sarathi/models/establishment.dart';
+import 'package:sarathi/services/establishment_service.dart';
+import 'package:sarathi/theme.dart';
+import 'package:sarathi/widgets/product_counter.dart';
+import 'package:sarathi/widgets/product_item.dart';
 
 class CustomerArguments {
   final int establishmentId;
@@ -63,10 +63,10 @@ class _CustomerState extends State<Customer> {
             return Column(
               children: <Widget>[
                 Card(
-                  margin: EdgeInsets.all(YathaarthTheme.kPadding16),
+                  margin: EdgeInsets.all(SarathiTheme.kPadding16),
                   color: Colors.red,
                   child: Container(
-                    padding: EdgeInsets.all(YathaarthTheme.kPadding16),
+                    padding: EdgeInsets.all(SarathiTheme.kPadding16),
                   ),
                 ),
                 Expanded(
