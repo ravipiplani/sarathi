@@ -1,3 +1,3 @@
 # sarathi
 
-A platform to manage your sales force using location tracking and AI based distance optimized beat/route creation.
+A platform to manage on-field sales force using location tracking and AI based distance optimized beat/route creation.
